@@ -1,38 +1,61 @@
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import imgLogo from "@project-assets/orange logo.png";
-import imgMascot from "@project-assets/orange buddy.png";
-import imgShadow from "@project-assets/orange shadow.png";
+import imgGrayTaste from "@project-assets/gray taste.png";
+import imgOrangeShadow from "@project-assets/orange shadow.png";
+import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
 export default function StartScreenPage() {
   const navigate = useNavigate();
+  const [isSmiling, setIsSmiling] = useState(false);
 
-  const handleClick = () => {
-    navigate("/welcome");
+  const handleBuddyClick = () => {
+    if (isSmiling) return;
+    setIsSmiling(true);
+    window.setTimeout(() => navigate("/welcome"), 550);
   };
 
   return (
-    <div 
-      className="relative size-full cursor-pointer bg-gradient-to-b from-[#ff9178] to-[#ffc9bd]" 
+    <div
+      className="flex min-h-screen w-full min-w-0 flex-col bg-gradient-to-b from-[#ffc8a8] via-[#ffd5bc] to-[#ffe8d4] px-6"
       data-name="Start Screen"
-      onClick={handleClick}
-      onKeyDown={(e) => e.key === "Enter" && handleClick()}
-      role="button"
-      tabIndex={0}
     >
-      <div className="absolute left-[calc(50%+4.5px)] top-[664px] h-[34px] w-[203px] -translate-x-1/2 mix-blend-multiply">
-        <img alt="" className="size-full object-cover opacity-70" src={imgShadow} />
-      </div>
-      <div className="absolute left-1/2 top-[348px] block size-[376px] -translate-x-1/2" data-name="mascot">
-        <div className="absolute left-[calc(50%+0.5px)] top-[calc(50%-0.5px)] h-[297px] w-[195px] -translate-x-1/2 -translate-y-1/2">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <img alt="" className="absolute left-[0.18%] top-[0.14%] size-full max-w-none object-contain" src={imgMascot} />
+      <header className="flex shrink-0 justify-center pt-8 pb-6">
+        <img
+          src={imgGrayTaste}
+          alt="taste buddy"
+          className="h-auto w-[min(300px,88vw)] max-w-full object-contain"
+          draggable={false}
+        />
+      </header>
+
+      <div className="flex flex-1 flex-col items-center justify-center pb-16">
+        <button
+          type="button"
+          className="m-0 flex cursor-pointer flex-col items-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-[#ffd5bc]"
+          onClick={handleBuddyClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleBuddyClick();
+            }
+          }}
+          aria-label="Taste Buddy — tap to continue"
+        >
+          <div className="relative inline-flex h-[min(380px,48vh)] w-[min(280px,78vw)] items-center justify-center">
+            <img
+              src={imgOrangeShadow}
+              alt=""
+              draggable={false}
+              className={`absolute max-h-full max-w-full object-contain object-bottom transition-opacity duration-300 ease-out select-none ${isSmiling ? "opacity-0" : "opacity-100"}`}
+            />
+            <img
+              src={imgOrangeSmileShadow}
+              alt=""
+              draggable={false}
+              className={`absolute max-h-full max-w-full object-contain object-bottom transition-opacity duration-300 ease-out select-none ${isSmiling ? "opacity-100" : "opacity-0"}`}
+            />
           </div>
-        </div>
-      </div>
-      <div className="absolute left-[19px] top-[109px] h-[202px] w-[353px]" data-name="logo">
-        <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <img alt="" className="absolute left-[-5.22%] top-[-46.7%] h-[193.4%] w-[110.43%] max-w-none object-contain" src={imgLogo} />
-        </div>
+        </button>
       </div>
     </div>
   );
