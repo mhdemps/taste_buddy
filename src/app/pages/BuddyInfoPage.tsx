@@ -1,8 +1,9 @@
 import { useParams, useNavigate } from "react-router";
-import { useState } from "react";
 import { motion } from "motion/react";
 import { useBuddies } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
+import GrayTasteHeader from "../components/GrayTasteHeader";
+import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
 import arrowLeft from "@project-assets/left arrow.png";
 import infoBox1 from "@project-assets/box 1.png";
 import infoBox2 from "@project-assets/box 2.png";
@@ -16,7 +17,15 @@ export default function BuddyInfoPage() {
   const buddy = buddyId ? getBuddyById(buddyId) : null;
   
   if (!buddy) {
-    return <div>Buddy not found</div>;
+    return (
+      <div className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}>
+        <GrayTasteHeader />
+        <div className="flex flex-1 items-center justify-center pb-32">
+          <p className="share-tech-regular text-[#ff3a00]">Buddy not found</p>
+        </div>
+        <Navigation />
+      </div>
+    );
   }
 
   const handleRemove = () => {
@@ -26,32 +35,29 @@ export default function BuddyInfoPage() {
     }
   };
 
-  // Count the number of info cards to calculate remove button position
-  const infoCardCount = [
-    buddy.favoriteFood,
-    buddy.personality,
-    buddy.specialty,
-    buddy.partiesAttended,
-    buddy.recipesGiven
-  ].filter(Boolean).length;
-  
-  // Calculate position: start + (cards * height) + (cards * spacing) + extra spacing
-  const removeButtonTop = 360 + (infoCardCount * 120) + ((infoCardCount - 1) * 24) + 40;
-  const minHeight = removeButtonTop + 200; // Ensure enough space to scroll past nav bar
-
   return (
-    <div className="size-full overflow-y-auto overflow-x-hidden">
-      <motion.div 
-        className="bg-gradient-to-b from-[#ffab97] relative to-[#ffc9bd] w-screen"
-        style={{ minHeight: `${minHeight}px`, paddingBottom: '120px' }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+    <div className={`flex min-h-screen flex-col overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}>
+      <GrayTasteHeader />
 
-        {/* Buddy character with circle background - matching BuddiesPage ratio */}
-        <motion.div 
-          className="absolute left-1/2 -translate-x-1/2 top-[80px]"
+      <div className="flex flex-1 flex-col items-center pb-44 pt-2">
+        <div className="mb-4 flex w-full max-w-[340px] justify-start">
+          <motion.button
+            type="button"
+            onClick={() => navigate('/buddies')}
+            className="h-[50px] w-[80px]"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Back to buddies"
+          >
+            <img alt="" className="size-full object-contain" src={arrowLeft} />
+          </motion.button>
+        </div>
+
+        <motion.div
+          className="flex flex-col items-center"
           initial={{ scale: 0.5, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -59,19 +65,17 @@ export default function BuddyInfoPage() {
           <div className="relative" style={{ width: '200px', height: '200px' }}>
             <img 
               alt="" 
-              className="absolute inset-0 w-full h-full object-cover pointer-events-none" 
+              className="pointer-events-none absolute inset-0 size-full object-cover" 
               src={buddy.circleImage} 
             />
-            {/* Using same ratio as BuddiesPage: 80x105 in 138px circle, scaled up proportionally */}
-            <div className="absolute" style={{ width: '116px', height: '152px', left: '42px', top: '24px' }}>
-              <img alt="" className="w-full h-full object-contain" src={buddy.smilingImage} />
+            <div className="absolute left-[42px] top-[24px] h-[152px] w-[116px]">
+              <img alt="" className="size-full object-contain" src={buddy.smilingImage} />
             </div>
           </div>
         </motion.div>
 
-        {/* Buddy name */}
         <motion.h1 
-          className="absolute left-1/2 -translate-x-1/2 top-[290px] font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[42px] text-center"
+          className="mt-6 text-center share-tech-regular text-[42px] text-[#ff3a00]"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
@@ -79,95 +83,78 @@ export default function BuddyInfoPage() {
           {buddy.name}
         </motion.h1>
 
-        {/* Info cards with organic box backgrounds */}
         <motion.div 
-          className="absolute left-1/2 -translate-x-1/2 top-[360px] w-[340px] space-y-6"
+          className="mt-8 flex w-full max-w-[340px] flex-col items-center space-y-6"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.35 }}
         >
-          {/* Show appropriate fields based on what data exists */}
           {buddy.favoriteFood && (
-            <div className="relative h-[120px]">
-              <img alt="" className="absolute inset-0 w-full h-full object-contain" src={infoBox1} />
-              <div className="relative z-10 px-8 py-4 flex flex-col justify-center h-full">
-                <h3 className="font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[20px] mb-1">Favorite Food</h3>
-                <p className="font-['Relay_Trial:Regular',sans-serif] text-[#2d2d2d] text-[16px]">{buddy.favoriteFood}</p>
+            <div className="relative h-[120px] w-full">
+              <img alt="" className="absolute inset-0 size-full object-contain" src={infoBox1} />
+              <div className="relative z-10 flex h-full flex-col justify-center px-8 py-4">
+                <h3 className="mb-1 share-tech-regular text-[20px] text-[#ff3a00]">Favorite Food</h3>
+                <p className="share-tech-regular text-[16px] text-[#2d2d2d]">{buddy.favoriteFood}</p>
               </div>
             </div>
           )}
 
           {buddy.personality && (
-            <div className="relative h-[120px]">
-              <img alt="" className="absolute inset-0 w-full h-full object-contain" src={infoBox2} />
-              <div className="relative z-10 px-8 py-4 flex flex-col justify-center h-full">
-                <h3 className="font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[20px] mb-1">Personality</h3>
-                <p className="font-['Relay_Trial:Regular',sans-serif] text-[#2d2d2d] text-[16px]">{buddy.personality}</p>
+            <div className="relative h-[120px] w-full">
+              <img alt="" className="absolute inset-0 size-full object-contain" src={infoBox2} />
+              <div className="relative z-10 flex h-full flex-col justify-center px-8 py-4">
+                <h3 className="mb-1 share-tech-regular text-[20px] text-[#ff3a00]">Personality</h3>
+                <p className="share-tech-regular text-[16px] text-[#2d2d2d]">{buddy.personality}</p>
               </div>
             </div>
           )}
 
           {buddy.specialty && (
-            <div className="relative h-[120px]">
-              <img alt="" className="absolute inset-0 w-full h-full object-contain" src={infoBox3} />
-              <div className="relative z-10 px-8 py-4 flex flex-col justify-center h-full">
-                <h3 className="font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[20px] mb-1">Specialty</h3>
-                <p className="font-['Relay_Trial:Regular',sans-serif] text-[#2d2d2d] text-[16px]">{buddy.specialty}</p>
+            <div className="relative h-[120px] w-full">
+              <img alt="" className="absolute inset-0 size-full object-contain" src={infoBox3} />
+              <div className="relative z-10 flex h-full flex-col justify-center px-8 py-4">
+                <h3 className="mb-1 share-tech-regular text-[20px] text-[#ff3a00]">Specialty</h3>
+                <p className="share-tech-regular text-[16px] text-[#2d2d2d]">{buddy.specialty}</p>
               </div>
             </div>
           )}
 
-          {buddy.partiesAttended && (
-            <div className="relative h-[120px]">
-              <img alt="" className="absolute inset-0 w-full h-full object-contain" src={infoBox1} />
-              <div className="relative z-10 px-8 py-4 flex flex-col justify-center h-full">
-                <h3 className="font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[20px] mb-1">Parties Attended</h3>
-                <p className="font-['Relay_Trial:Regular',sans-serif] text-[#2d2d2d] text-[16px]">{buddy.partiesAttended}</p>
+          {buddy.partiesAttended !== undefined && buddy.partiesAttended !== null && (
+            <div className="relative h-[120px] w-full">
+              <img alt="" className="absolute inset-0 size-full object-contain" src={infoBox1} />
+              <div className="relative z-10 flex h-full flex-col justify-center px-8 py-4">
+                <h3 className="mb-1 share-tech-regular text-[20px] text-[#ff3a00]">Parties Attended</h3>
+                <p className="share-tech-regular text-[16px] text-[#2d2d2d]">{buddy.partiesAttended}</p>
               </div>
             </div>
           )}
 
           {buddy.recipesGiven && (
-            <div className="relative h-[120px]">
-              <img alt="" className="absolute inset-0 w-full h-full object-contain" src={infoBox2} />
-              <div className="relative z-10 px-8 py-4 flex flex-col justify-center h-full">
-                <h3 className="font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[20px] mb-1">Recipes Given</h3>
-                <p className="font-['Relay_Trial:Regular',sans-serif] text-[#2d2d2d] text-[16px]">{buddy.recipesGiven}</p>
+            <div className="relative h-[120px] w-full">
+              <img alt="" className="absolute inset-0 size-full object-contain" src={infoBox2} />
+              <div className="relative z-10 flex h-full flex-col justify-center px-8 py-4">
+                <h3 className="mb-1 share-tech-regular text-[20px] text-[#ff3a00]">Recipes Given</h3>
+                <p className="share-tech-regular text-[16px] text-[#2d2d2d]">{buddy.recipesGiven}</p>
               </div>
             </div>
           )}
         </motion.div>
 
-        {/* Remove button as plain text - positioned below info cards */}
         <motion.button
+          type="button"
           onClick={handleRemove}
-          className="absolute left-1/2 -translate-x-1/2 font-['Relay_Trial:Regular',sans-serif] text-[#ff3a00] text-[16px]"
-          style={{ top: `${removeButtonTop}px` }}
+          className="mt-10 share-tech-regular text-[16px] text-[#ff3a00]"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.5 }}
           whileHover={{ opacity: 0.7 }}
           whileTap={{ scale: 0.95 }}
         >
           Remove Buddy
         </motion.button>
+      </div>
 
-        {/* Back button with arrow - smaller size */}
-        <motion.button
-          onClick={() => navigate('/buddies')}
-          className="absolute left-8 top-8 w-[80px] h-[50px]"
-          initial={{ x: -20, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.6 }}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <img alt="Back" className="w-full h-full object-contain" src={arrowLeft} />
-        </motion.button>
-
-        {/* Fixed navigation bar at bottom */}
-        <Navigation />
-      </motion.div>
+      <Navigation />
     </div>
   );
 }

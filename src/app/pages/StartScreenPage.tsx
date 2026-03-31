@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import imgGrayTaste from "@project-assets/gray taste.png";
+import GrayTasteHeader from "../components/GrayTasteHeader";
+import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
@@ -11,22 +12,15 @@ export default function StartScreenPage() {
   const handleBuddyClick = () => {
     if (isSmiling) return;
     setIsSmiling(true);
-    window.setTimeout(() => navigate("/welcome"), 550);
+    window.setTimeout(() => navigate("/welcome"), 850);
   };
 
   return (
     <div
-      className="flex min-h-screen w-full min-w-0 flex-col bg-gradient-to-b from-[#ffc8a8] via-[#ffd5bc] to-[#ffe8d4] px-6"
+      className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}
       data-name="Start Screen"
     >
-      <header className="flex shrink-0 justify-center pt-8 pb-6">
-        <img
-          src={imgGrayTaste}
-          alt="taste buddy"
-          className="h-auto w-[min(300px,88vw)] max-w-full object-contain"
-          draggable={false}
-        />
-      </header>
+      <GrayTasteHeader />
 
       <div className="flex flex-1 flex-col items-center justify-center pb-16">
         <button
@@ -41,20 +35,12 @@ export default function StartScreenPage() {
           }}
           aria-label="Taste Buddy — tap to continue"
         >
-          <div className="relative inline-flex h-[min(380px,48vh)] w-[min(280px,78vw)] items-center justify-center">
-            <img
-              src={imgOrangeShadow}
-              alt=""
-              draggable={false}
-              className={`absolute max-h-full max-w-full object-contain object-bottom transition-opacity duration-300 ease-out select-none ${isSmiling ? "opacity-0" : "opacity-100"}`}
-            />
-            <img
-              src={imgOrangeSmileShadow}
-              alt=""
-              draggable={false}
-              className={`absolute max-h-full max-w-full object-contain object-bottom transition-opacity duration-300 ease-out select-none ${isSmiling ? "opacity-100" : "opacity-0"}`}
-            />
-          </div>
+          <img
+            src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
+            alt=""
+            draggable={false}
+            className="max-h-[min(380px,48vh)] w-auto max-w-[min(280px,78vw)] object-contain object-bottom select-none"
+          />
         </button>
       </div>
     </div>

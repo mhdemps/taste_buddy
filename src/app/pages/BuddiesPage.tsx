@@ -3,8 +3,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useBuddies } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
-import imgLogo from "@project-assets/orange logo.png";
+import GrayTasteHeader from "../components/GrayTasteHeader";
+import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
 import imgAddBuddy from "@project-assets/add button.png";
+
+const FIRST_ROW_TOP = 16;
+const ROW_STEP = 191;
 
 function BuddyCard({ 
   name, 
@@ -69,7 +73,7 @@ function BuddyCard({
         </AnimatePresence>
       </motion.button>
       <p 
-        className="pointer-events-none absolute -translate-x-1/2 h-[28px] w-[94px] text-center font-['Relay_Trial:Regular',sans-serif] text-[24px] not-italic leading-[normal] text-[#ff3a00]"
+        className="pointer-events-none absolute -translate-x-1/2 h-[28px] w-[94px] text-center share-tech-regular text-[24px] not-italic leading-[normal] text-[#ff3a00]"
         style={{ left: `${leftPos + 69}px`, top: `${topPos + 141}px` }}
       >
         {name}
@@ -83,18 +87,19 @@ export default function BuddiesPage() {
   const { buddies } = useBuddies();
 
   const numRows = Math.ceil(buddies.length / 2);
-  const lastBuddyBottomPos = 214 + ((numRows - 1) * 191) + 141 + 28;
+  const lastRowTop = FIRST_ROW_TOP + (numRows - 1) * ROW_STEP;
+  const lastBuddyBottomPos = lastRowTop + 141 + 28;
   const addButtonTopPos = lastBuddyBottomPos + 60;
-  const minHeight = addButtonTopPos + 200;
+  const innerMinHeight = addButtonTopPos + 200;
 
   return (
-    <div className="size-full overflow-y-auto overflow-x-hidden">
-      <div className="relative w-screen bg-gradient-to-b from-[#ffab97] to-[#ffc9bd] pb-32" style={{ minHeight: `${minHeight}px` }} data-name="Buddies">
-        <div className="absolute left-[64px] top-[35px] h-[149px] w-[261px]" data-name="logo">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <img alt="Taste Buddy" className="absolute left-[-5.22%] top-[-46.7%] h-[193.4%] w-[110.43%] max-w-none object-contain" src={imgLogo} />
-          </div>
-        </div>
+    <div className={`flex min-h-screen flex-col overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`} data-name="Buddies">
+      <GrayTasteHeader />
+
+      <div
+        className="relative mx-auto w-full max-w-[390px] flex-1 pb-40"
+        style={{ minHeight: `${innerMinHeight}px` }}
+      >
         {buddies.map((buddy, index) => (
           <BuddyCard 
             key={buddy.id}
@@ -103,12 +108,12 @@ export default function BuddiesPage() {
             smilingImage={buddy.smilingImage} 
             backgroundImage={buddy.circleImage} 
             leftPos={index % 2 === 0 ? 46 : 206} 
-            topPos={214 + (Math.floor(index / 2) * 191)} 
+            topPos={FIRST_ROW_TOP + (Math.floor(index / 2) * ROW_STEP)} 
             rotate={index % 2 === 1}
             buddyId={buddy.id} 
           />
         ))}
-        
+
         <motion.button
           type="button"
           onClick={() => navigate('/add-buddy')}
@@ -119,9 +124,9 @@ export default function BuddiesPage() {
         >
           <img alt="Add buddy" className="h-full w-full object-contain" src={imgAddBuddy} />
         </motion.button>
-
-        <Navigation />
       </div>
+
+      <Navigation />
     </div>
   );
 }

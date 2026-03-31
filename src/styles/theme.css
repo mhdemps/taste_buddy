@@ -79,6 +79,8 @@
 }
 
 @theme inline {
+  --font-sans: "Share Tech", sans-serif;
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -119,13 +121,21 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+@layer components {
+  .share-tech-regular {
+    font-family: "Share Tech", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 
   /**

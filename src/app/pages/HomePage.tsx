@@ -1,28 +1,30 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import Navigation from "../components/Navigation";
-import imgLogo from "@project-assets/orange logo.png";
-import imgBuddy from "@project-assets/orange buddy.png";
-import imgBuddySmile from "@project-assets/orange buddy smile.png";
-import imgShadow from "@project-assets/orange shadow.png";
+import GrayTasteHeader from "../components/GrayTasteHeader";
+import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
+import imgOrangeShadow from "@project-assets/orange shadow.png";
+import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
-function BuddyCharacter({ isSmiling, onClick }: { isSmiling: boolean; onClick: () => void }) {
+function MascotButton({
+  isSmiling,
+  onClick,
+}: {
+  isSmiling: boolean;
+  onClick: () => void;
+}) {
   return (
-    <button 
+    <button
       type="button"
       onClick={onClick}
-      className="absolute left-[134px] top-[212px] cursor-pointer"
+      className="flex flex-col items-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/40"
     >
-      <div className="absolute left-[calc(50%+6px)] top-[392px] h-[23.04px] w-[128px] -translate-x-1/2">
-        <img alt="" className="size-full object-cover opacity-60" src={imgShadow} />
-      </div>
-      <div className="absolute left-[134px] top-[212px] h-[193px] w-[126px]" data-name="mascot">
-        <img 
-          alt="" 
-          className="size-full max-w-none object-cover transition-all duration-300" 
-          src={isSmiling ? imgBuddySmile : imgBuddy} 
-        />
-      </div>
+      <img
+        alt=""
+        src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
+        className="h-auto max-h-[min(240px,38vh)] w-[min(200px,58vw)] max-w-full object-contain object-bottom transition-none select-none"
+        draggable={false}
+      />
     </button>
   );
 }
@@ -31,30 +33,27 @@ export default function HomePage() {
   const [isSmiling, setIsSmiling] = useState(false);
   const navigate = useNavigate();
 
-  const handleBuddyClick = () => {
+  const handleMascotClick = () => {
     setIsSmiling(true);
-    setTimeout(() => {
-      navigate('/');
+    window.setTimeout(() => {
+      navigate("/");
     }, 300);
   };
 
   return (
-    <div className="size-full overflow-y-auto overflow-x-hidden">
-      <div className="relative min-h-screen w-screen bg-gradient-to-b from-[#ffab97] to-[#ffc9bd]" data-name="home">
-        <div className="absolute left-[64px] top-[35px] h-[149px] w-[261px]" data-name="logo">
-          <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <img alt="Taste Buddy" className="absolute left-[-5.22%] top-[-46.7%] h-[193.4%] w-[110.43%] max-w-none object-contain" src={imgLogo} />
-          </div>
-        </div>
-        <div className="absolute left-[195px] top-[442px] h-[82px] w-[416px] -translate-x-1/2 text-center font-['Relay_Trial:Regular','Noto_Sans:Regular',sans-serif] text-[24px] leading-[normal] text-[#ff3a00]" style={{ fontVariationSettings: "'CTGR' 0, 'wdth' 100, 'wght' 400" }}>
+    <div className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`} data-name="home">
+      <GrayTasteHeader />
+
+      <div className="flex flex-1 flex-col items-center justify-center gap-8 pb-40 text-center">
+        <div className="share-tech-regular max-w-lg px-2 text-[clamp(1.5rem,5.5vw,2rem)] leading-snug text-[#ff3a00]">
           <p className="mb-0">Your buddy for </p>
           <p>culinary exploration!</p>
         </div>
-        
-        <BuddyCharacter isSmiling={isSmiling} onClick={handleBuddyClick} />
 
-        <Navigation />
+        <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
       </div>
+
+      <Navigation />
     </div>
   );
 }
