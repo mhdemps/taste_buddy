@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router";
 import { motion } from "motion/react";
-import imgTasteBuddyPlanningRecovered1 from "figma:asset/a75f13ee8fdc55044426e18a4df7c4c3f15a6468.png";
-import imgImage11 from "figma:asset/c9c2d9aab4edc4242272e58890847fcaa02cc29a.png";
+import imgLogo from "@project-assets/orange logo.png";
+import imgMascot from "@project-assets/orange buddy.png";
 
 export default function TextInPage() {
   const navigate = useNavigate();
@@ -12,12 +12,15 @@ export default function TextInPage() {
 
   return (
     <div 
-      className="bg-gradient-to-b from-[#ff9178] relative size-full to-[#ffc9bd] cursor-pointer" 
+      className="relative size-full cursor-pointer bg-gradient-to-b from-[#ff9178] to-[#ffc9bd]" 
       data-name="text in"
       onClick={handleClick}
+      onKeyDown={(e) => e.key === "Enter" && handleClick()}
+      role="button"
+      tabIndex={0}
     >
       <motion.div 
-        className="-translate-x-1/2 absolute h-[23.04px] left-[calc(50%+5px)] top-[676.98px] w-[128px]"
+        className="absolute left-[calc(50%+5px)] top-[676.98px] h-[23.04px] w-[128px] -translate-x-1/2"
         initial={{ width: 203, height: 34, top: 664, left: "calc(50% + 4.5px)" }}
         animate={{ width: 128, height: 23.04, top: 676.98, left: "calc(50% + 5px)" }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
@@ -28,34 +31,34 @@ export default function TextInPage() {
       </motion.div>
       
       <motion.div 
-        className="-translate-x-1/2 absolute h-[86px] left-[calc(50%+0.5px)] top-[379px] w-[221px]" 
+        className="absolute left-[calc(50%+0.5px)] top-[379px] h-[86px] w-[221px] -translate-x-1/2" 
         data-name="Hello buddy, welcome back!"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
       >
-        <div className="absolute font-['Relay_Trial:Regular',sans-serif] inset-0 leading-[normal] not-italic text-[#ff3a00] text-[36px] text-center whitespace-nowrap">
+        <div className="absolute inset-0 text-center font-['Relay_Trial:Regular',sans-serif] text-[36px] not-italic leading-[normal] text-[#ff3a00] whitespace-nowrap">
           <p className="mb-0">Hello buddy,</p>
           <p>welcome back!</p>
         </div>
       </motion.div>
       
-      <div className="absolute h-[202px] left-[19px] top-[109px] w-[353px]" data-name="taste buddy planning [Recovered] 1">
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <img alt="" className="absolute h-[193.4%] left-[-5.22%] max-w-none top-[-46.7%] w-[110.43%]" src={imgTasteBuddyPlanningRecovered1} />
+      <div className="absolute left-[19px] top-[109px] h-[202px] w-[353px]" data-name="logo">
+        <div className="pointer-events-none absolute inset-0 overflow-hidden">
+          <img alt="" className="absolute left-[-5.22%] top-[-46.7%] h-[193.4%] w-[110.43%] max-w-none object-contain" src={imgLogo} />
         </div>
       </div>
       
       <motion.div 
-        className="-translate-x-1/2 absolute block left-[calc(50%+1px)] size-[245px] top-[470.5px]" 
-        data-name="red bud 3"
+        className="absolute left-[calc(50%+1px)] top-[470.5px] block size-[245px] -translate-x-1/2" 
+        data-name="mascot"
         initial={{ width: 376, height: 376, top: 348, left: "50%" }}
         animate={{ width: 245, height: 245, top: 470.5, left: "calc(50% + 1px)" }}
         transition={{ duration: 0.6, ease: "easeInOut" }}
       >
-        <div className="-translate-x-1/2 -translate-y-1/2 absolute h-[193.524px] left-[calc(50%+0.33px)] top-[calc(50%-0.33px)] w-[127.061px]" data-name="image 11">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute left-[0.18%] max-w-none size-full top-[0.14%]" src={imgImage11} />
+        <div className="absolute left-[calc(50%+0.33px)] top-[calc(50%-0.33px)] h-[193.524px] w-[127.061px] -translate-x-1/2 -translate-y-1/2">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <img alt="" className="absolute left-[0.18%] top-[0.14%] size-full max-w-none object-contain" src={imgMascot} />
           </div>
         </div>
       </motion.div>

@@ -3,12 +3,9 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useBuddies } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
-import imgTasteBuddyPlanningRecovered1 from "figma:asset/a75f13ee8fdc55044426e18a4df7c4c3f15a6468.png";
-// Add buddy button
-import addCircle from "figma:asset/66d4f2d7685ae9ec88410743dbad25549c027578.png";
-import plusSign from "figma:asset/0dc14cc468d43677607c926fd2e4ab5b748cbffd.png";
+import imgLogo from "@project-assets/orange logo.png";
+import imgAddBuddy from "@project-assets/add button.png";
 
-// Reusable Buddy Component — circle + buddy ratios match `src/imports/Buddies.tsx` (Figma Make)
 function BuddyCard({ 
   name, 
   buddyImage, 
@@ -40,8 +37,8 @@ function BuddyCard({
 
   return (
     <>
-      {/* Background circle */}
       <motion.button
+        type="button"
         onClick={handleClick}
         className="absolute cursor-pointer overflow-hidden rounded-[93px]"
         style={{ left: `${leftPos}px`, top: `${topPos}px`, width: '138px', height: '134px' }}
@@ -50,7 +47,7 @@ function BuddyCard({
       >
         <img 
           alt="" 
-          className="absolute inset-0 max-w-none size-full object-cover pointer-events-none rounded-[93px]" 
+          className="pointer-events-none absolute inset-0 size-full max-w-none rounded-[93px] object-cover" 
           style={{ transform: rotate ? 'rotate(180deg)' : 'none' }}
           src={backgroundImage} 
         />
@@ -65,15 +62,14 @@ function BuddyCard({
           >
             <img 
               alt="" 
-              className="absolute inset-0 max-w-none size-full object-cover pointer-events-none" 
+              className="pointer-events-none absolute inset-0 size-full max-w-none object-cover" 
               src={isClicked ? smilingImage : buddyImage} 
             />
           </motion.div>
         </AnimatePresence>
       </motion.button>
-      {/* Name label underneath */}
       <p 
-        className="-translate-x-1/2 absolute font-['Relay_Trial:Regular',sans-serif] h-[28px] leading-[normal] not-italic text-[#ff3a00] text-[24px] text-center w-[94px] pointer-events-none"
+        className="pointer-events-none absolute -translate-x-1/2 h-[28px] w-[94px] text-center font-['Relay_Trial:Regular',sans-serif] text-[24px] not-italic leading-[normal] text-[#ff3a00]"
         style={{ left: `${leftPos + 69}px`, top: `${topPos + 141}px` }}
       >
         {name}
@@ -86,23 +82,17 @@ export default function BuddiesPage() {
   const navigate = useNavigate();
   const { buddies } = useBuddies();
 
-  // Calculate positions dynamically based on number of buddies
   const numRows = Math.ceil(buddies.length / 2);
-  const lastBuddyBottomPos = 214 + ((numRows - 1) * 191) + 141 + 28; // topPos + rowOffset + circleHeight + nameHeight
+  const lastBuddyBottomPos = 214 + ((numRows - 1) * 191) + 141 + 28;
   const addButtonTopPos = lastBuddyBottomPos + 60;
-  const minHeight = addButtonTopPos + 200; // Reduced height since we removed the text and bottom buddy
+  const minHeight = addButtonTopPos + 200;
 
   return (
     <div className="size-full overflow-y-auto overflow-x-hidden">
-      <div className="bg-gradient-to-b from-[#ffab97] relative pb-32 to-[#ffc9bd] w-screen" style={{ minHeight: `${minHeight}px` }} data-name="Buddies">
-        <div className="absolute h-[149px] left-[64px] top-[35px] w-[261px]" data-name="taste buddy planning [Recovered] 1">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[193.4%] left-[-5.22%] max-w-none top-[-46.7%] w-[110.43%]" src={imgTasteBuddyPlanningRecovered1} />
-          </div>
-        </div>
-        <div className="absolute h-[149px] left-[64px] top-[35px] w-[261px]" data-name="taste buddy planning [Recovered] 2">
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[193.4%] left-[-5.22%] max-w-none top-[-46.7%] w-[110.43%]" src={imgTasteBuddyPlanningRecovered1} />
+      <div className="relative w-screen bg-gradient-to-b from-[#ffab97] to-[#ffc9bd] pb-32" style={{ minHeight: `${minHeight}px` }} data-name="Buddies">
+        <div className="absolute left-[64px] top-[35px] h-[149px] w-[261px]" data-name="logo">
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <img alt="Taste Buddy" className="absolute left-[-5.22%] top-[-46.7%] h-[193.4%] w-[110.43%] max-w-none object-contain" src={imgLogo} />
           </div>
         </div>
         {buddies.map((buddy, index) => (
@@ -119,21 +109,17 @@ export default function BuddiesPage() {
           />
         ))}
         
-        {/* Add buddy button */}
         <motion.button
+          type="button"
           onClick={() => navigate('/add-buddy')}
-          className="absolute left-1/2 -translate-x-1/2 w-[80px] h-[80px]"
+          className="absolute left-1/2 h-[80px] w-[80px] -translate-x-1/2"
           style={{ top: `${addButtonTopPos}px` }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img alt="" className="absolute inset-0 w-full h-full object-contain" src={addCircle} />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[30px] h-[30px]">
-            <img alt="" className="w-full h-full object-contain" src={plusSign} />
-          </div>
+          <img alt="Add buddy" className="h-full w-full object-contain" src={imgAddBuddy} />
         </motion.button>
 
-        {/* Fixed navigation bar at bottom */}
         <Navigation />
       </div>
     </div>

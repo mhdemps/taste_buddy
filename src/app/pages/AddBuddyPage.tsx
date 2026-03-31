@@ -3,14 +3,11 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { useBuddies } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
-import imgTasteBuddyPlanningRecovered1 from "figma:asset/a75f13ee8fdc55044426e18a4df7c4c3f15a6468.png";
-import arrowLeft from "figma:asset/bea062ad65d8c895b94d113b6047ba79f80c4a0b.png";
-
-// Info boxes for form fields
-import infoBox1 from "figma:asset/da71192213e78d1e1fc1076d0433288520ea4dc1.png";
-import infoBox2 from "figma:asset/4ba6d1d48a583ac5f5230c970b105dd607757f8b.png";
-import infoBox3 from "figma:asset/f8e2ae8fcfc7ea6a31a7286c92a941c9941649a1.png";
-import infoBox4 from "figma:asset/1f74a25819072ecd827d010f8cced0b47d605003.png";
+import imgLogo from "@project-assets/orange logo.png";
+import infoBox1 from "@project-assets/box 1.png";
+import infoBox2 from "@project-assets/box 2.png";
+import infoBox3 from "@project-assets/box 3.png";
+import infoBox4 from "@project-assets/box 4.png";
 
 export default function AddBuddyPage() {
   const navigate = useNavigate();
@@ -41,7 +38,7 @@ export default function AddBuddyPage() {
         {/* Logo */}
         <div className="absolute h-[149px] left-[64px] top-[35px] w-[261px]">
           <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <img alt="" className="absolute h-[193.4%] left-[-5.22%] max-w-none top-[-46.7%] w-[110.43%]" src={imgTasteBuddyPlanningRecovered1} />
+            <img alt="" className="absolute h-[193.4%] left-[-5.22%] max-w-none top-[-46.7%] w-[110.43%] object-contain" src={imgLogo} />
           </div>
         </div>
 

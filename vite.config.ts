@@ -37,6 +37,8 @@ export default defineConfig({
     alias: {
       // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
+      /** Project root `assets/` — exported PNGs from design */
+      '@project-assets': path.resolve(__dirname, 'assets'),
     },
   },
 

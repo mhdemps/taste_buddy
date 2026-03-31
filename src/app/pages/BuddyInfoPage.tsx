@@ -3,10 +3,10 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { useBuddies } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
-import arrowLeft from "figma:asset/bea062ad65d8c895b94d113b6047ba79f80c4a0b.png";
-import infoBox1 from "figma:asset/da71192213e78d1e1fc1076d0433288520ea4dc1.png";
-import infoBox2 from "figma:asset/4ba6d1d48a583ac5f5230c970b105dd607757f8b.png";
-import infoBox3 from "figma:asset/f8e2ae8fcfc7ea6a31a7286c92a941c9941649a1.png";
+import arrowLeft from "@project-assets/left arrow.png";
+import infoBox1 from "@project-assets/box 1.png";
+import infoBox2 from "@project-assets/box 2.png";
+import infoBox3 from "@project-assets/box 3.png";
 
 export default function BuddyInfoPage() {
   const navigate = useNavigate();
