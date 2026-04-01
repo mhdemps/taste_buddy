@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { motion } from "motion/react";
 import Navigation from "../components/Navigation";
 import GrayTasteHeader from "../components/GrayTasteHeader";
 import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
+
+const HOME_ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
 
 function MascotButton({
   isSmiling,
@@ -45,12 +48,19 @@ export default function HomePage() {
       <GrayTasteHeader />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-8 pb-40 text-center">
-        <div className="share-tech-regular max-w-lg px-2 text-[clamp(1.5rem,5.5vw,2rem)] leading-snug text-[#ff3a00]">
+        <div className="share-tech-bold max-w-lg px-2 text-[clamp(1.5rem,5.5vw,2rem)] leading-snug text-[#ff3a00]">
           <p className="mb-0">Your buddy for </p>
           <p>culinary exploration!</p>
         </div>
 
-        <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
+        <motion.div
+          className="flex justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.48, ease: HOME_ENTRANCE_EASE, delay: 0.06 }}
+        >
+          <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
+        </motion.div>
       </div>
 
       <Navigation />

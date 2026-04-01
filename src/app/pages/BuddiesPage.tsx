@@ -1,32 +1,26 @@
 import { useNavigate } from "react-router";
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import { useBuddies } from "../context/BuddiesContext";
+import { useBuddies, circleForBuddyColor, getBuddyColorIndex } from "../context/BuddiesContext";
 import Navigation from "../components/Navigation";
 import GrayTasteHeader from "../components/GrayTasteHeader";
-import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
-import imgAddBuddy from "@project-assets/add button.png";
+import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD, PAGE_INTRO_BLURB_TEXT } from "../brand";
+import { BUDDY_IN_CIRCLE_H_PCT, BUDDY_IN_CIRCLE_W_PCT } from "../buddyLayout";
+import imgAddBuddy from "@project-assets/madison-is-pretty.png";
 
-const FIRST_ROW_TOP = 16;
-const ROW_STEP = 191;
-
-function BuddyCard({ 
-  name, 
-  buddyImage, 
+function BuddyCard({
+  name,
+  buddyImage,
   smilingImage,
-  backgroundImage, 
-  leftPos, 
-  topPos,
-  rotate = false,
-  buddyId
-}: { 
-  name: string; 
+  backgroundImage,
+  circleFlipped,
+  buddyId,
+}: {
+  name: string;
   buddyImage: string;
   smilingImage: string;
-  backgroundImage: string; 
-  leftPos: number; 
-  topPos: number;
-  rotate?: boolean;
+  backgroundImage: string;
+  circleFlipped: boolean;
   buddyId: string;
 }) {
   const navigate = useNavigate();
@@ -40,45 +34,56 @@ function BuddyCard({
   };
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <motion.button
         type="button"
         onClick={handleClick}
-        className="absolute cursor-pointer overflow-hidden rounded-[93px]"
-        style={{ left: `${leftPos}px`, top: `${topPos}px`, width: '138px', height: '134px' }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
+        className="relative aspect-square w-full overflow-hidden rounded-[50%] shadow-none"
+        whileHover={{ scale: 1.04 }}
+        whileTap={{ scale: 0.96 }}
       >
-        <img 
-          alt="" 
-          className="pointer-events-none absolute inset-0 size-full max-w-none rounded-[93px] object-cover" 
-          style={{ transform: rotate ? 'rotate(180deg)' : 'none' }}
-          src={backgroundImage} 
+        <img
+          alt=""
+          className="pointer-events-none absolute inset-0 z-0 size-full object-cover"
+          style={{
+            borderRadius: "50%",
+            transform: circleFlipped ? "rotate(180deg)" : "none",
+          }}
+          src={backgroundImage}
+          draggable={false}
         />
         <AnimatePresence mode="wait">
-          <motion.div 
+          <motion.div
             key={isClicked ? "smiling" : "normal"}
-            className="absolute aspect-[709/1083] left-[26.09%] right-[26.81%] top-[18px]" 
-            initial={{ opacity: 0, scale: 0.8 }}
+            className="pointer-events-none absolute inset-0 z-10 flex items-center justify-center"
+            initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+            exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.3 }}
           >
-            <img 
-              alt="" 
-              className="pointer-events-none absolute inset-0 size-full max-w-none object-cover" 
-              src={isClicked ? smilingImage : buddyImage} 
-            />
+            <div
+              className="flex min-h-0 min-w-0 items-center justify-center"
+              style={{
+                width: `${BUDDY_IN_CIRCLE_W_PCT}%`,
+                height: `${BUDDY_IN_CIRCLE_H_PCT}%`,
+                maxWidth: `${BUDDY_IN_CIRCLE_W_PCT}%`,
+                maxHeight: `${BUDDY_IN_CIRCLE_H_PCT}%`,
+              }}
+            >
+              <img
+                alt=""
+                className="max-h-full max-w-full object-contain object-center"
+                src={isClicked ? smilingImage : buddyImage}
+                draggable={false}
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
       </motion.button>
-      <p 
-        className="pointer-events-none absolute -translate-x-1/2 h-[28px] w-[94px] text-center share-tech-regular text-[24px] not-italic leading-[normal] text-[#ff3a00]"
-        style={{ left: `${leftPos + 69}px`, top: `${topPos + 141}px` }}
-      >
+      <p className="-mt-2.5 max-w-[9rem] text-center share-tech-bold text-[22px] leading-none tracking-wide text-[#ff3a00] sm:-mt-3.5 sm:text-[24px]">
         {name}
       </p>
-    </>
+    </div>
   );
 }
 
@@ -86,45 +91,75 @@ export default function BuddiesPage() {
   const navigate = useNavigate();
   const { buddies } = useBuddies();
 
-  const numRows = Math.ceil(buddies.length / 2);
-  const lastRowTop = FIRST_ROW_TOP + (numRows - 1) * ROW_STEP;
-  const lastBuddyBottomPos = lastRowTop + 141 + 28;
-  const addButtonTopPos = lastBuddyBottomPos + 60;
-  const innerMinHeight = addButtonTopPos + 200;
-
   return (
-    <div className={`flex min-h-screen flex-col overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`} data-name="Buddies">
+    <div
+      className={`flex min-h-screen flex-col overflow-x-hidden overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}
+      data-name="Buddies"
+    >
       <GrayTasteHeader />
 
-      <div
-        className="relative mx-auto w-full max-w-[390px] flex-1 pb-40"
-        style={{ minHeight: `${innerMinHeight}px` }}
+      <motion.div
+        className="flex flex-1 flex-col items-center pb-44 pt-2"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
       >
-        {buddies.map((buddy, index) => (
-          <BuddyCard 
-            key={buddy.id}
-            name={buddy.name} 
-            buddyImage={buddy.buddyImage} 
-            smilingImage={buddy.smilingImage} 
-            backgroundImage={buddy.circleImage} 
-            leftPos={index % 2 === 0 ? 46 : 206} 
-            topPos={FIRST_ROW_TOP + (Math.floor(index / 2) * ROW_STEP)} 
-            rotate={index % 2 === 1}
-            buddyId={buddy.id} 
-          />
-        ))}
+        <motion.h1
+          className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+          initial={{ y: 12, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.45, delay: 0.05 }}
+        >
+          Buddies
+        </motion.h1>
+        <motion.p
+          className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+          style={{ color: PAGE_INTRO_BLURB_TEXT }}
+          initial={{ y: 12, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.45, delay: 0.1 }}
+        >
+          Tap a buddy for their profile — use + to add another Taste Buddy.
+        </motion.p>
+
+        <div className="mx-auto w-full max-w-[40rem] px-1.5 sm:max-w-[48rem] sm:px-3">
+          <motion.div
+            className="grid grid-cols-2 gap-x-3 gap-y-11 sm:gap-x-6 sm:gap-y-12"
+            initial={{ y: 16, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.12 }}
+          >
+            {buddies.map((buddy, index) => (
+              <BuddyCard
+                key={buddy.id}
+                name={buddy.name}
+                buddyImage={buddy.buddyImage}
+                smilingImage={buddy.smilingImage}
+                backgroundImage={circleForBuddyColor(getBuddyColorIndex(buddy.buddyImage))}
+                circleFlipped={((index % 2) + Math.floor(index / 2)) % 2 === 1}
+                buddyId={buddy.id}
+              />
+            ))}
+          </motion.div>
+        </div>
 
         <motion.button
           type="button"
-          onClick={() => navigate('/add-buddy')}
-          className="absolute left-1/2 h-[80px] w-[80px] -translate-x-1/2"
-          style={{ top: `${addButtonTopPos}px` }}
+          onClick={() => navigate("/add-buddy")}
+          className="mt-14 size-32"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.45, delay: 0.18 }}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
-          <img alt="Add buddy" className="h-full w-full object-contain" src={imgAddBuddy} />
+          <img
+            alt="Add buddy"
+            className="h-full w-full object-contain"
+            src={imgAddBuddy}
+          />
         </motion.button>
-      </div>
+      </motion.div>
 
       <Navigation />
     </div>

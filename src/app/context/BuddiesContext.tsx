@@ -4,19 +4,19 @@ import buddyCyan from "@project-assets/blue buddy.png";
 import buddyYellow from "@project-assets/yellow buddy.png";
 import buddyGreen from "@project-assets/green buddy.png";
 import buddyRed from "@project-assets/red buddy.png";
-import buddyOrange from "@project-assets/orange shadow.png";
+import buddyOrange from "@project-assets/orange buddy.png";
 import buddyPurpleSmile from "@project-assets/purple buddy smile.png";
 import buddyCyanSmile from "@project-assets/blue buddy smile.png";
 import buddyYellowSmile from "@project-assets/yellow buddy smile.png";
 import buddyGreenSmile from "@project-assets/green buddy smile.png";
 import buddyRedSmile from "@project-assets/red buddy smile.png";
-import buddyOrangeSmile from "@project-assets/orange smile shadow.png";
-import circlePurple from "@project-assets/button.png";
-import circleGreen from "@project-assets/button 2.png";
-import circleYellow from "@project-assets/button 3.png";
-import circleCyan from "@project-assets/button 4.png";
-import circleRed from "@project-assets/box 3.png";
-import circleOrange from "@project-assets/box 4.png";
+import buddyOrangeSmile from "@project-assets/orange buddy smile.png";
+import lightCirclePurple from "@project-assets/light purple circle.png";
+import lightCircleBlue from "@project-assets/light blue circle.png";
+import lightCircleYellow from "@project-assets/light yellow circle.png";
+import lightCircleGreen from "@project-assets/light green circle.png";
+import lightCircleRed from "@project-assets/light red circle.png";
+import lightCircleOrange from "@project-assets/light orange circle.png";
 
 export interface Buddy {
   id: string;
@@ -30,11 +30,24 @@ export interface Buddy {
   specialty?: string;
   partiesAttended?: number;
   recipesGiven?: string;
+  /** Foods to avoid — free text or comma-separated tags */
+  allergies?: string;
+}
+
+export interface BuddyEditablePayload {
+  name: string;
+  favoriteFood: string;
+  personality: string;
+  specialty: string;
+  partiesAttended: string;
+  recipesGiven: string;
+  allergies: string;
 }
 
 interface BuddiesContextType {
   buddies: Buddy[];
   addBuddy: (buddy: Omit<Buddy, "id" | "buddyImage" | "smilingImage" | "circleImage" | "backgroundColor">) => void;
+  updateBuddy: (id: string, payload: BuddyEditablePayload) => void;
   removeBuddy: (id: string) => void;
   getBuddyById: (id: string) => Buddy | undefined;
 }
@@ -43,16 +56,100 @@ const BuddiesContext = createContext<BuddiesContextType | undefined>(undefined);
 
 const buddyImages = [buddyPurple, buddyCyan, buddyYellow, buddyGreen, buddyRed, buddyOrange];
 const buddySmilingImages = [buddyPurpleSmile, buddyCyanSmile, buddyYellowSmile, buddyGreenSmile, buddyRedSmile, buddyOrangeSmile];
-const circleImages = [circlePurple, circleGreen, circleYellow, circleCyan, circleRed, circleOrange];
+/** Indexed same as buddy colors: purple, cyan/blue, yellow, green, red, orange — never use index i behind buddy i */
+const lightCircles = [
+  lightCirclePurple,
+  lightCircleBlue,
+  lightCircleYellow,
+  lightCircleGreen,
+  lightCircleRed,
+  lightCircleOrange,
+];
+
+/**
+ * Buddy asset color 0–5: purple, cyan, yellow, green, red, orange.
+ * Circle art index matches reference layout (always contrasts buddy hue).
+ */
+export function getBuddyColorIndex(buddyImage: string): number {
+  const i = buddyImages.findIndex((img) => img === buddyImage);
+  return i === -1 ? 0 : i;
+}
+
+/** Reference pairings: Bip purple→yellow, Bop cyan→orange, George yellow→purple, etc. */
+const CIRCLE_FOR_BUDDY_COLOR = [2, 5, 0, 1, 3, 0] as const;
+
+export function circleForBuddyColor(buddyColorIndex: number): string {
+  const idx = CIRCLE_FOR_BUDDY_COLOR[Math.min(buddyColorIndex, 5)] ?? 2;
+  if (idx === buddyColorIndex) {
+    const fallback = [0, 1, 2, 3, 4, 5].find((c) => c !== buddyColorIndex) ?? 0;
+    return lightCircles[fallback];
+  }
+  return lightCircles[idx];
+}
+
+/**
+ * Buddies / buddy profile must not load these assets (legacy URLs in localStorage included).
+ */
+function decodeUrlLoose(url: string): string {
+  try {
+    return decodeURIComponent(url).toLowerCase();
+  } catch {
+    return url.toLowerCase();
+  }
+}
+
+function urlReferencesBannedBuddyAsset(url: string): boolean {
+  const s = decodeUrlLoose(url);
+  return (
+    s.includes("orange shadow") ||
+    s.includes("orange smile shadow") ||
+    s.includes("orange party") ||
+    s.includes("party-top-buddy")
+  );
+}
+
+function inferBuddyColorIndexFromUrls(b: Buddy): number {
+  const s = decodeUrlLoose(`${b.buddyImage} ${b.smilingImage}`);
+  if (s.includes("purple buddy")) return 0;
+  if (s.includes("blue buddy")) return 1;
+  if (s.includes("yellow buddy")) return 2;
+  if (s.includes("green buddy")) return 3;
+  if (s.includes("red buddy")) return 4;
+  if (s.includes("orange buddy")) return 5;
+  if (s.includes("orange shadow") || s.includes("orange smile shadow") || s.includes("orange party")) return 5;
+  return 0;
+}
+
+function migrateBannedBuddyPageAssets(list: Buddy[]): Buddy[] {
+  return list.map((b) => {
+    const bad =
+      urlReferencesBannedBuddyAsset(b.buddyImage) ||
+      urlReferencesBannedBuddyAsset(b.smilingImage);
+    if (!bad) return b;
+    const idx = inferBuddyColorIndexFromUrls(b);
+    return {
+      ...b,
+      buddyImage: buddyImages[idx]!,
+      smilingImage: buddySmilingImages[idx]!,
+    };
+  });
+}
+
+function migrateBuddyCircles(list: Buddy[]): Buddy[] {
+  return list.map((b) => ({
+    ...b,
+    circleImage: circleForBuddyColor(getBuddyColorIndex(b.buddyImage)),
+  }));
+}
+
 const backgroundColors = ["#b19cd9", "#7dd3d3", "#ffd966", "#93c47d", "#ea9999", "#f6b26b"];
 
-const initialBuddies: Buddy[] = [
+const initialBuddySeeds: Omit<Buddy, "circleImage">[] = [
   {
     id: "bip",
     name: "Bip",
     buddyImage: buddyPurple,
     smilingImage: buddyPurpleSmile,
-    circleImage: circleYellow,
     backgroundColor: "#b19cd9",
     favoriteFood: "Blueberry pancakes",
     personality: "Cheerful and energetic",
@@ -63,7 +160,6 @@ const initialBuddies: Buddy[] = [
     name: "Bop",
     buddyImage: buddyCyan,
     smilingImage: buddyCyanSmile,
-    circleImage: circleOrange,
     backgroundColor: "#7dd3d3",
     favoriteFood: "Seafood pasta",
     personality: "Calm and collected",
@@ -74,7 +170,6 @@ const initialBuddies: Buddy[] = [
     name: "George",
     buddyImage: buddyYellow,
     smilingImage: buddyYellowSmile,
-    circleImage: circlePurple,
     backgroundColor: "#ffd966",
     favoriteFood: "Lemon tart",
     personality: "Creative and curious",
@@ -85,7 +180,6 @@ const initialBuddies: Buddy[] = [
     name: "Red Bud",
     buddyImage: buddyGreen,
     smilingImage: buddyGreenSmile,
-    circleImage: circleCyan,
     backgroundColor: "#93c47d",
     favoriteFood: "Fresh salads",
     personality: "Health-conscious and wise",
@@ -96,7 +190,6 @@ const initialBuddies: Buddy[] = [
     name: "Gabby",
     buddyImage: buddyRed,
     smilingImage: buddyRedSmile,
-    circleImage: circleGreen,
     backgroundColor: "#ea9999",
     favoriteFood: "Spicy tacos",
     personality: "Bold and adventurous",
@@ -107,7 +200,6 @@ const initialBuddies: Buddy[] = [
     name: "Madi",
     buddyImage: buddyOrange,
     smilingImage: buddyOrangeSmile,
-    circleImage: circlePurple,
     backgroundColor: "#f6b26b",
     favoriteFood: "Pumpkin soup",
     personality: "Warm and friendly",
@@ -118,18 +210,24 @@ const initialBuddies: Buddy[] = [
     name: "Riley",
     buddyImage: buddyYellow,
     smilingImage: buddyYellowSmile,
-    circleImage: circleGreen,
     backgroundColor: "#ffd966",
     favoriteFood: "Banana bread",
     personality: "Sweet and caring",
     specialty: "Baked goods"
-  }
+  },
 ];
+
+const initialBuddies: Buddy[] = initialBuddySeeds.map((b) => ({
+  ...b,
+  circleImage: circleForBuddyColor(getBuddyColorIndex(b.buddyImage)),
+}));
 
 export function BuddiesProvider({ children }: { children: ReactNode }) {
   const [buddies, setBuddies] = useState<Buddy[]>(() => {
-    const saved = localStorage.getItem('tasteBuddyBuddies');
-    return saved ? JSON.parse(saved) : initialBuddies;
+    const saved = localStorage.getItem("tasteBuddyBuddies");
+    if (!saved) return initialBuddies;
+    const parsed = JSON.parse(saved) as Buddy[];
+    return migrateBuddyCircles(migrateBannedBuddyPageAssets(parsed));
   });
 
   useEffect(() => {
@@ -138,18 +236,50 @@ export function BuddiesProvider({ children }: { children: ReactNode }) {
 
   const addBuddy = (newBuddy: Omit<Buddy, "id" | "buddyImage" | "smilingImage" | "circleImage" | "backgroundColor">) => {
     const randomIndex = Math.floor(Math.random() * buddyImages.length);
-    const circleIndex = Math.floor(Math.random() * circleImages.length);
-    
+
+    const id = `buddy-${Date.now()}`;
     const buddy: Buddy = {
       ...newBuddy,
-      id: `buddy-${Date.now()}`,
+      id,
       buddyImage: buddyImages[randomIndex],
       smilingImage: buddySmilingImages[randomIndex],
-      circleImage: circleImages[circleIndex],
-      backgroundColor: backgroundColors[randomIndex]
+      circleImage: circleForBuddyColor(randomIndex),
+      backgroundColor: backgroundColors[randomIndex],
     };
 
     setBuddies([...buddies, buddy]);
+  };
+
+  const trimOrUndef = (s: string) => {
+    const t = s.trim();
+    return t === "" ? undefined : t;
+  };
+
+  const updateBuddy = (id: string, payload: BuddyEditablePayload) => {
+    const partiesRaw = payload.partiesAttended.trim();
+    let partiesAttended: number | undefined;
+    if (partiesRaw === "") partiesAttended = undefined;
+    else {
+      const n = Number.parseInt(partiesRaw, 10);
+      partiesAttended = Number.isNaN(n) ? undefined : n;
+    }
+
+    setBuddies(
+      buddies.map((b) =>
+        b.id !== id
+          ? b
+          : {
+              ...b,
+              name: payload.name.trim() || b.name,
+              favoriteFood: trimOrUndef(payload.favoriteFood),
+              personality: trimOrUndef(payload.personality),
+              specialty: trimOrUndef(payload.specialty),
+              recipesGiven: trimOrUndef(payload.recipesGiven),
+              allergies: trimOrUndef(payload.allergies),
+              partiesAttended,
+            }
+      )
+    );
   };
 
   const removeBuddy = (id: string) => {
@@ -161,7 +291,7 @@ export function BuddiesProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <BuddiesContext.Provider value={{ buddies, addBuddy, removeBuddy, getBuddyById }}>
+    <BuddiesContext.Provider value={{ buddies, addBuddy, updateBuddy, removeBuddy, getBuddyById }}>
       {children}
     </BuddiesContext.Provider>
   );

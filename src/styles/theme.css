@@ -127,6 +127,13 @@
     font-weight: 400;
     font-style: normal;
   }
+
+  /** Headings / titles — Share Tech only ships one weight; 700 uses faux bold */
+  .share-tech-bold {
+    font-family: "Share Tech", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
 }
 
 @layer base {
