@@ -212,7 +212,7 @@ export default function FriendRecipePage() {
           transition={{ duration: 0.5 }}
         >
           <motion.h1
-            className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+            className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.45, delay: 0.05 }}
@@ -220,7 +220,7 @@ export default function FriendRecipePage() {
             {isEditView ? "Edit buddy recipe" : "Add a buddy recipe"}
           </motion.h1>
           <motion.p
-            className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+            className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
             style={{ color: PAGE_INTRO_BLURB_TEXT }}
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -239,14 +239,14 @@ export default function FriendRecipePage() {
             transition={{ duration: 0.5, delay: 0.12 }}
           >
             <InfoBoxFrame variant={0}>
-              <label htmlFor="recipe-buddy" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-buddy" className="mb-2 block share-tech-regular text-[20px]">
                 Buddy who shared
               </label>
               <select
                 id="recipe-buddy"
                 value={buddyId}
                 onChange={(e) => setBuddyId(e.target.value)}
-                className="share-tech-regular text-[16px]"
+                className="share-tech-regular text-[18px]"
                 required
               >
                 {buddies.map((b) => (
@@ -258,7 +258,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="recipe-title" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-title" className="mb-2 block share-tech-regular text-[20px]">
                 Recipe name
               </label>
               <input
@@ -266,14 +266,14 @@ export default function FriendRecipePage() {
                 type="text"
                 value={recipeName}
                 onChange={(e) => setRecipeName(e.target.value)}
-                className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                 placeholder="e.g. Grandma soup, Tuesday tacos"
                 required
               />
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={2}>
-              <label htmlFor="recipe-allergies" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-allergies" className="mb-2 block share-tech-regular text-[20px]">
                 Allergy tags (optional)
               </label>
               <input
@@ -281,20 +281,20 @@ export default function FriendRecipePage() {
                 type="text"
                 value={allergies}
                 onChange={(e) => setAllergies(e.target.value)}
-                className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                 placeholder="e.g. nuts, gluten — comma-separated"
               />
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={3}>
-              <label htmlFor="recipe-ingredients" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-ingredients" className="mb-2 block share-tech-regular text-[20px]">
                 Ingredients &amp; amounts
               </label>
               <textarea
                 id="recipe-ingredients"
                 value={ingredients}
                 onChange={(e) => setIngredients(e.target.value)}
-                className="share-tech-regular text-[16px]"
+                className="share-tech-regular text-[18px]"
                 placeholder="List what goes in, as they told you"
                 rows={5}
                 required
@@ -302,14 +302,14 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={0}>
-              <label htmlFor="recipe-directions" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-directions" className="mb-2 block share-tech-regular text-[20px]">
                 Directions
               </label>
               <textarea
                 id="recipe-directions"
                 value={directions}
                 onChange={(e) => setDirections(e.target.value)}
-                className="share-tech-regular text-[16px]"
+                className="share-tech-regular text-[18px]"
                 placeholder="Prep, cook times, order of steps…"
                 rows={6}
                 required
@@ -317,14 +317,14 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="recipe-notes" className="mb-2 block share-tech-regular text-[18px]">
+              <label htmlFor="recipe-notes" className="mb-2 block share-tech-regular text-[20px]">
                 Extra notes (optional)
               </label>
               <textarea
                 id="recipe-notes"
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
-                className="share-tech-regular text-[16px]"
+                className="share-tech-regular text-[18px]"
                 placeholder="Substitutions, tricks, what to serve with…"
                 rows={3}
               />
@@ -340,7 +340,7 @@ export default function FriendRecipePage() {
                 fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
                 innerClassName="px-8 py-3"
               >
-                <span className="share-tech-regular text-[16px] text-white">
+                <span className="share-tech-regular text-[18px] text-white">
                   {isEditView ? "Save changes" : "Save recipe"}
                 </span>
               </ChalkPillFrame>
@@ -349,7 +349,7 @@ export default function FriendRecipePage() {
             <motion.button
               type="button"
               onClick={() => navigate("/friend-recipe")}
-              className="self-center py-2 share-tech-bold text-[18px] text-[#ff3a00]"
+              className="self-center py-2 share-tech-bold text-[20px] text-[#ff3a00]"
               whileHover={{ opacity: 0.7 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -384,7 +384,7 @@ export default function FriendRecipePage() {
         />
 
         <motion.h1
-          className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+          className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.05 }}
@@ -392,7 +392,7 @@ export default function FriendRecipePage() {
           Buddy recipe swap
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -409,14 +409,14 @@ export default function FriendRecipePage() {
             transition={{ duration: 0.5, delay: 0.12 }}
           >
             <InfoBoxFrame variant={0}>
-              <p className="share-tech-regular text-[16px] leading-snug">
+              <p className="share-tech-regular text-[18px] leading-snug">
                 Add a buddy first so you can save recipes from them.
               </p>
             </InfoBoxFrame>
             <motion.button
               type="button"
               onClick={() => navigate("/add-buddy")}
-              className="w-full py-3 text-center share-tech-bold text-[18px] text-[#ff3a00]"
+              className="w-full py-3 text-center share-tech-bold text-[20px] text-[#ff3a00]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -434,13 +434,13 @@ export default function FriendRecipePage() {
         >
           <h2
             id="saved-recipes-heading"
-            className="text-center share-tech-bold text-[22px] text-[#ff3a00]"
+            className="text-center share-tech-bold text-[24px] text-[#ff3a00]"
           >
             Your buddy recipes
           </h2>
           {saved.length === 0 ? (
             <InfoBoxFrame variant={1}>
-              <p className="share-tech-regular text-[16px] leading-snug">
+              <p className="share-tech-regular text-[18px] leading-snug">
                 {buddies.length === 0
                   ? "Nothing saved yet — add a buddy, then tap + to add your first buddy recipe."
                   : "Nothing here yet — tap + below to add your first buddy recipe."}
@@ -457,43 +457,43 @@ export default function FriendRecipePage() {
                       <InfoBoxFrame variant={i % 4}>
                         {isExpanded ? (
                           <>
-                            <h3 className="mb-2 pr-11 share-tech-bold text-[20px]">{r.recipeName}</h3>
+                            <h3 className="mb-2 pr-11 share-tech-bold text-[22px]">{r.recipeName}</h3>
                             {allergyList.length > 0 ? (
                               <ul className="mb-3 flex max-w-full flex-wrap gap-1.5 pr-11" aria-label="Allergens">
                                 {allergyList.map((tag, ti) => (
                                   <li
                                     key={`${r.id}-allergy-${ti}`}
-                                    className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[12px] leading-tight text-[#ff3a00]"
+                                    className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
                                   >
                                     {tag}
                                   </li>
                                 ))}
                               </ul>
                             ) : null}
-                            <p className="mb-3 share-tech-regular text-[15px] leading-snug pr-11">
+                            <p className="mb-3 share-tech-regular text-[17px] leading-snug pr-11">
                               <span className="opacity-90">From · </span>
                               {r.friendName}
                             </p>
                             {r.ingredients ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[14px] opacity-90">Ingredients</p>
-                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[15px] leading-snug">
+                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Ingredients</p>
+                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.ingredients}
                                 </p>
                               </div>
                             ) : null}
                             {r.directions ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[14px] opacity-90">Directions</p>
-                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[15px] leading-snug">
+                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Directions</p>
+                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.directions}
                                 </p>
                               </div>
                             ) : null}
                             {r.notes ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[14px] opacity-90">Notes</p>
-                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[15px] leading-snug">
+                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Notes</p>
+                                <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.notes}
                                 </p>
                               </div>
@@ -510,7 +510,7 @@ export default function FriendRecipePage() {
                                   fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
                                   innerClassName="px-7 py-2.5"
                                 >
-                                  <span className="share-tech-regular text-[15px] text-white">Edit</span>
+                                  <span className="share-tech-regular text-[17px] text-white">Edit</span>
                                 </ChalkPillFrame>
                               </motion.button>
                               <motion.button
@@ -537,25 +537,25 @@ export default function FriendRecipePage() {
                             aria-expanded={false}
                             onClick={() => setExpandedRecipeId(r.id)}
                           >
-                            <h3 className="mb-2 share-tech-bold text-[20px]">{r.recipeName}</h3>
+                            <h3 className="mb-2 share-tech-bold text-[22px]">{r.recipeName}</h3>
                             {allergyList.length > 0 ? (
                               <ul className="mb-2 flex max-w-full flex-wrap gap-1.5" aria-label="Allergens">
                                 {allergyList.map((tag, ti) => (
                                   <li
                                     key={`${r.id}-allergy-${ti}`}
-                                    className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[12px] leading-tight text-[#ff3a00]"
+                                    className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
                                   >
                                     {tag}
                                   </li>
                                 ))}
                               </ul>
                             ) : null}
-                            <p className="mb-2 share-tech-regular text-[14px] leading-snug opacity-90">
+                            <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
                               <span className="opacity-90">From · </span>
                               {r.friendName}
                             </p>
                             <p
-                              className="share-tech-regular text-[14px] leading-snug opacity-75"
+                              className="share-tech-regular text-[16px] leading-snug opacity-75"
                               style={{ color: PAGE_INTRO_BLURB_TEXT }}
                             >
                               Tap to open recipe

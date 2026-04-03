@@ -38,7 +38,7 @@ function buddyToForm(b: {
   };
 }
 
-const inputClass = "border-none bg-transparent share-tech-regular text-[16px] outline-none";
+const inputClass = "border-none bg-transparent share-tech-regular text-[18px] outline-none";
 
 export default function BuddyInfoPage() {
   const navigate = useNavigate();
@@ -85,7 +85,7 @@ export default function BuddyInfoPage() {
               fillClassName="border-2 border-[#ff3a00] bg-[#fffaf8] shadow-[0_2px_14px_rgba(45,36,32,0.1)]"
               innerClassName="px-7 py-2.5"
             >
-              <span className="share-tech-bold text-[15px] text-[#ff3a00]">All buddies</span>
+              <span className="share-tech-bold text-[17px] text-[#ff3a00]">All buddies</span>
             </ChalkPillFrame>
           </motion.button>
         </div>
@@ -136,12 +136,12 @@ export default function BuddyInfoPage() {
               innerClassName="gap-2 px-5 py-2.5"
             >
               <span
-                className="share-tech-bold text-[20px] leading-none text-[#ff3a00] transition-transform duration-200 group-hover:-translate-x-0.5"
+                className="share-tech-bold text-[22px] leading-none text-[#ff3a00] transition-transform duration-200 group-hover:-translate-x-0.5"
                 aria-hidden
               >
                 ‹
               </span>
-              <span className="share-tech-bold text-[16px] text-[#ff3a00]">All buddies</span>
+              <span className="share-tech-bold text-[18px] text-[#ff3a00]">All buddies</span>
             </ChalkPillFrame>
           </motion.button>
         </div>
@@ -185,7 +185,7 @@ export default function BuddyInfoPage() {
 
         {!editing && (
           <motion.h1
-            className="-mt-2 mt-2 text-center share-tech-bold text-[42px] leading-none text-[#ff3a00]"
+            className="-mt-2 mt-2 text-center share-tech-bold text-[46px] leading-none text-[#ff3a00]"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
@@ -204,7 +204,7 @@ export default function BuddyInfoPage() {
             transition={{ duration: 0.35 }}
           >
             <InfoBoxFrame variant={0}>
-              <label htmlFor="edit-name" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-name" className="mb-1 block share-tech-regular text-[20px]">
                 Name
               </label>
               <input
@@ -218,7 +218,7 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="edit-food" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-food" className="mb-1 block share-tech-regular text-[20px]">
                 Favorite Food
               </label>
               <input
@@ -232,7 +232,7 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={2}>
-              <label htmlFor="edit-personality" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-personality" className="mb-1 block share-tech-regular text-[20px]">
                 Personality
               </label>
               <input
@@ -246,7 +246,7 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={3}>
-              <label htmlFor="edit-specialty" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-specialty" className="mb-1 block share-tech-regular text-[20px]">
                 Specialty
               </label>
               <input
@@ -260,7 +260,7 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={0}>
-              <label htmlFor="edit-parties" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-parties" className="mb-1 block share-tech-regular text-[20px]">
                 Parties Attended
               </label>
               <input
@@ -275,7 +275,7 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="edit-recipes" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-recipes" className="mb-1 block share-tech-regular text-[20px]">
                 Recipes Given
               </label>
               <input
@@ -289,14 +289,14 @@ export default function BuddyInfoPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={2}>
-              <label htmlFor="edit-allergies" className="mb-1 block share-tech-regular text-[18px]">
+              <label htmlFor="edit-allergies" className="mb-1 block share-tech-regular text-[20px]">
                 Allergies &amp; restrictions
               </label>
               <textarea
                 id="edit-allergies"
                 value={form.allergies}
                 onChange={(e) => setForm((f) => ({ ...f, allergies: e.target.value }))}
-                className="share-tech-regular text-[16px]"
+                className="share-tech-regular text-[18px]"
                 placeholder="Optional — foods to avoid"
                 rows={4}
               />
@@ -311,8 +311,8 @@ export default function BuddyInfoPage() {
           >
             {buddy.favoriteFood && (
               <InfoBoxFrame variant={0}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Favorite Food</h3>
-                <p className="min-w-0 break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Favorite Food</h3>
+                <p className="min-w-0 break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.favoriteFood}
                 </p>
               </InfoBoxFrame>
@@ -320,8 +320,8 @@ export default function BuddyInfoPage() {
 
             {buddy.personality && (
               <InfoBoxFrame variant={1}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Personality</h3>
-                <p className="min-w-0 break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Personality</h3>
+                <p className="min-w-0 break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.personality}
                 </p>
               </InfoBoxFrame>
@@ -329,8 +329,8 @@ export default function BuddyInfoPage() {
 
             {buddy.specialty && (
               <InfoBoxFrame variant={2}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Specialty</h3>
-                <p className="min-w-0 break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Specialty</h3>
+                <p className="min-w-0 break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.specialty}
                 </p>
               </InfoBoxFrame>
@@ -338,8 +338,8 @@ export default function BuddyInfoPage() {
 
             {buddy.partiesAttended !== undefined && buddy.partiesAttended !== null && (
               <InfoBoxFrame variant={3}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Parties Attended</h3>
-                <p className="min-w-0 break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Parties Attended</h3>
+                <p className="min-w-0 break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.partiesAttended}
                 </p>
               </InfoBoxFrame>
@@ -347,8 +347,8 @@ export default function BuddyInfoPage() {
 
             {buddy.recipesGiven && (
               <InfoBoxFrame variant={0}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Recipes Given</h3>
-                <p className="min-w-0 break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Recipes Given</h3>
+                <p className="min-w-0 break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.recipesGiven}
                 </p>
               </InfoBoxFrame>
@@ -356,8 +356,8 @@ export default function BuddyInfoPage() {
 
             {buddy.allergies && (
               <InfoBoxFrame variant={1}>
-                <h3 className="mb-1 share-tech-bold text-[20px]">Allergies &amp; restrictions</h3>
-                <p className="min-w-0 whitespace-pre-wrap break-words share-tech-regular text-[16px] leading-snug">
+                <h3 className="mb-1 share-tech-bold text-[22px]">Allergies &amp; restrictions</h3>
+                <p className="min-w-0 whitespace-pre-wrap break-words share-tech-regular text-[18px] leading-snug">
                   {buddy.allergies}
                 </p>
               </InfoBoxFrame>
@@ -387,7 +387,7 @@ export default function BuddyInfoPage() {
                   fillClassName="border-2 border-[#ff3a00] bg-[#fffaf8] shadow-[0_2px_10px_rgba(45,36,32,0.08)]"
                   innerClassName="px-6 py-2.5"
                 >
-                  <span className="share-tech-regular text-[16px] text-[#ff3a00]">Cancel</span>
+                  <span className="share-tech-regular text-[18px] text-[#ff3a00]">Cancel</span>
                 </ChalkPillFrame>
               </motion.button>
               <motion.button
@@ -401,7 +401,7 @@ export default function BuddyInfoPage() {
                   fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_12px_rgba(255,58,0,0.28)]"
                   innerClassName="px-6 py-2.5"
                 >
-                  <span className="share-tech-regular text-[16px] text-white">Save changes</span>
+                  <span className="share-tech-regular text-[18px] text-white">Save changes</span>
                 </ChalkPillFrame>
               </motion.button>
             </div>
@@ -417,7 +417,7 @@ export default function BuddyInfoPage() {
                 fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
                 innerClassName="px-8 py-3"
               >
-                <span className="share-tech-regular text-[16px] text-white">Edit buddy</span>
+                <span className="share-tech-regular text-[18px] text-white">Edit buddy</span>
               </ChalkPillFrame>
             </motion.button>
           )}
@@ -425,7 +425,7 @@ export default function BuddyInfoPage() {
           <motion.button
             type="button"
             onClick={handleRemove}
-            className="share-tech-regular text-[16px] text-[#ff3a00]"
+            className="share-tech-regular text-[18px] text-[#ff3a00]"
             whileHover={{ opacity: 0.7 }}
             whileTap={{ scale: 0.95 }}
           >

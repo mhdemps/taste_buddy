@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import Navigation from "../components/Navigation";
 import GrayTasteHeader from "../components/GrayTasteHeader";
-import { PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
+import { HOME_BUDDY_IMG_CLASS, PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
@@ -48,7 +48,7 @@ export default function HomePage() {
       <GrayTasteHeader />
 
       <div className="flex flex-1 flex-col items-center justify-center gap-8 pb-40 text-center">
-        <div className="share-tech-bold max-w-lg px-2 text-[clamp(1.5rem,5.5vw,2rem)] leading-snug text-[#ff3a00]">
+        <div className="share-tech-bold max-w-lg px-2 text-[clamp(1.65rem,5.8vw,2.15rem)] leading-snug text-[#ff3a00]">
           <p className="mb-0">Your buddy for </p>
           <p>culinary exploration!</p>
         </div>
@@ -57,7 +57,7 @@ export default function HomePage() {
           className="flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.48, ease: HOME_ENTRANCE_EASE, delay: 0.06 }}
+          transition={{ duration: 0.34, ease: HOME_ENTRANCE_EASE, delay: 0.04 }}
         >
           <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
         </motion.div>

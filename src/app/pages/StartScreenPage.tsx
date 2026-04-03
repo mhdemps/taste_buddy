@@ -17,7 +17,7 @@ export default function StartScreenPage() {
   const handleBuddyClick = () => {
     if (isSmiling) return;
     setIsSmiling(true);
-    window.setTimeout(() => navigate("/welcome"), 850);
+    window.setTimeout(() => navigate("/welcome"), 600);
   };
 
   return (

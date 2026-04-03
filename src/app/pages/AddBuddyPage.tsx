@@ -56,7 +56,7 @@ export default function AddBuddyPage() {
         transition={{ duration: 0.5 }}
       >
         <motion.h1
-          className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+          className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.05 }}
@@ -64,7 +64,7 @@ export default function AddBuddyPage() {
           Add a buddy
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -81,7 +81,7 @@ export default function AddBuddyPage() {
           transition={{ duration: 0.5, delay: 0.12 }}
         >
           <InfoBoxFrame variant={0}>
-            <label htmlFor="add-buddy-name" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-name" className="mb-2 block share-tech-regular text-[20px]">
               Name
             </label>
             <input
@@ -89,14 +89,14 @@ export default function AddBuddyPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="What should we call them?"
               required
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={1}>
-            <label htmlFor="add-buddy-food" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-food" className="mb-2 block share-tech-regular text-[20px]">
               Favorite food
             </label>
             <input
@@ -104,13 +104,13 @@ export default function AddBuddyPage() {
               type="text"
               value={favoriteFood}
               onChange={(e) => setFavoriteFood(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="Optional"
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={2}>
-            <label htmlFor="add-buddy-personality" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-personality" className="mb-2 block share-tech-regular text-[20px]">
               Personality
             </label>
             <input
@@ -118,13 +118,13 @@ export default function AddBuddyPage() {
               type="text"
               value={personality}
               onChange={(e) => setPersonality(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="Optional"
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={3}>
-            <label htmlFor="add-buddy-specialty" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-specialty" className="mb-2 block share-tech-regular text-[20px]">
               Specialty
             </label>
             <input
@@ -132,13 +132,13 @@ export default function AddBuddyPage() {
               type="text"
               value={specialty}
               onChange={(e) => setSpecialty(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="Optional — what they cook best"
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={0}>
-            <label htmlFor="add-buddy-parties" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-parties" className="mb-2 block share-tech-regular text-[20px]">
               Parties attended
             </label>
             <input
@@ -147,13 +147,13 @@ export default function AddBuddyPage() {
               min={0}
               value={parties}
               onChange={(e) => setParties(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="Optional"
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={1}>
-            <label htmlFor="add-buddy-recipes" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-recipes" className="mb-2 block share-tech-regular text-[20px]">
               Recipes given
             </label>
             <input
@@ -161,20 +161,20 @@ export default function AddBuddyPage() {
               type="text"
               value={recipes}
               onChange={(e) => setRecipes(e.target.value)}
-              className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+              className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
               placeholder="Optional — dishes they’ve shared"
             />
           </InfoBoxFrame>
 
           <InfoBoxFrame variant={2}>
-            <label htmlFor="add-buddy-allergies" className="mb-2 block share-tech-regular text-[18px]">
+            <label htmlFor="add-buddy-allergies" className="mb-2 block share-tech-regular text-[20px]">
               Allergies &amp; restrictions
             </label>
             <textarea
               id="add-buddy-allergies"
               value={allergies}
               onChange={(e) => setAllergies(e.target.value)}
-              className="share-tech-regular text-[16px]"
+              className="share-tech-regular text-[18px]"
               placeholder="Tag foods to avoid — e.g. nuts, dairy, shellfish (comma-separated is fine)"
               rows={4}
             />
@@ -190,14 +190,14 @@ export default function AddBuddyPage() {
               fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
               innerClassName="px-8 py-3"
             >
-              <span className="share-tech-regular text-[16px] text-white">Save buddy</span>
+              <span className="share-tech-regular text-[18px] text-white">Save buddy</span>
             </ChalkPillFrame>
           </motion.button>
 
           <motion.button
             type="button"
             onClick={() => navigate("/buddies")}
-            className="self-center py-2 share-tech-bold text-[18px] text-[#ff3a00]"
+            className="self-center py-2 share-tech-bold text-[20px] text-[#ff3a00]"
             whileHover={{ opacity: 0.7 }}
             whileTap={{ scale: 0.95 }}
           >

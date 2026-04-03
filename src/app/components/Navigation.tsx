@@ -66,7 +66,7 @@ export default function Navigation() {
         </defs>
       </svg>
 
-      <div className="fixed bottom-3 left-0 right-0 z-50 flex justify-center px-2 sm:bottom-4 sm:px-4">
+      <div className="fixed bottom-[max(1.35rem,env(safe-area-inset-bottom,0px))] left-0 right-0 z-50 flex justify-center px-2 sm:bottom-5 sm:px-4">
         <nav aria-label="Main" className="relative isolate flex w-full max-w-[min(480px,calc(100vw-24px))]">
           <span
             aria-hidden

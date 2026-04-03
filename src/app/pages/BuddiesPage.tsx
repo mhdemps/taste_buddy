@@ -80,7 +80,7 @@ function BuddyCard({
           </motion.div>
         </AnimatePresence>
       </motion.button>
-      <p className="-mt-2.5 max-w-[9rem] text-center share-tech-bold text-[22px] leading-none tracking-wide text-[#ff3a00] sm:-mt-3.5 sm:text-[24px]">
+      <p className="-mt-2.5 max-w-[9rem] text-center share-tech-bold text-[24px] leading-none tracking-wide text-[#ff3a00] sm:-mt-3.5 sm:text-[26px]">
         {name}
       </p>
     </div>
@@ -105,7 +105,7 @@ export default function BuddiesPage() {
         transition={{ duration: 0.5 }}
       >
         <motion.h1
-          className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+          className="mb-4 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.05 }}
@@ -113,7 +113,7 @@ export default function BuddiesPage() {
           Buddies
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

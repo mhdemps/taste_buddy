@@ -3,8 +3,8 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import GrayTasteHeader from "../components/GrayTasteHeader";
 import {
-  INTRO_BUDDY_IMG_CLASS,
   INTRO_MAIN_LAYOUT_CLASS,
+  INTRO_TO_HOME_BUDDY_SCALE,
   PAGE_GRADIENT,
   PAGE_HORIZONTAL_PAD,
 } from "../brand";
@@ -13,10 +13,10 @@ import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 const SMOOTH_EASE = [0.22, 1, 0.36, 1] as const;
 
 /** After text fade-in (delay + duration), hold this long then go home */
-const HOLD_MS_AFTER_TEXT = 1350;
-const TEXT_DELAY_S = 0.15;
-const TEXT_DURATION_S = 0.52;
-const LEAVE_FADE_MS = 450;
+const HOLD_MS_AFTER_TEXT = 950;
+const TEXT_DELAY_S = 0.08;
+const TEXT_DURATION_S = 0.36;
+const LEAVE_FADE_MS = 320;
 
 export default function TextInPage() {
   const navigate = useNavigate();
@@ -66,7 +66,7 @@ export default function TextInPage() {
           transition={{ duration: LEAVE_FADE_MS / 1000, ease: SMOOTH_EASE }}
         >
           <motion.div
-            className="absolute bottom-full left-1/2 z-10 mb-7 w-[min(100%,22rem)] -translate-x-1/2 text-center share-tech-bold text-[clamp(1.75rem,6vw,2.25rem)] leading-tight text-[#ff3a00]"
+            className="absolute bottom-full left-1/2 z-10 mb-12 w-[min(100%,22rem)] -translate-x-1/2 text-center share-tech-bold text-[clamp(1.9rem,6.2vw,2.4rem)] leading-tight text-[#ff3a00] sm:mb-14"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
@@ -79,12 +79,23 @@ export default function TextInPage() {
             <p>welcome back!</p>
           </motion.div>
 
-          <img
-            src={imgOrangeSmileShadow}
-            alt=""
-            className={INTRO_BUDDY_IMG_CLASS}
-            draggable={false}
-          />
+          <motion.div
+            className="flex origin-bottom items-end justify-center"
+            initial={{ scale: 1 }}
+            animate={{ scale: INTRO_TO_HOME_BUDDY_SCALE }}
+            transition={{
+              duration: TEXT_DURATION_S,
+              ease: SMOOTH_EASE,
+              delay: TEXT_DELAY_S,
+            }}
+          >
+            <img
+              src={imgOrangeSmileShadow}
+              alt=""
+              className="max-h-[min(380px,48vh)] w-auto max-w-[min(280px,78vw)] object-contain object-bottom select-none"
+              draggable={false}
+            />
+          </motion.div>
         </motion.div>
       </div>
     </div>

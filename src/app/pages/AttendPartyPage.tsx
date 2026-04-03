@@ -252,7 +252,7 @@ export default function AttendPartyPage() {
         {themes.map((tag, ti) => (
           <li
             key={`${planId}-theme-${ti}`}
-            className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[12px] leading-tight text-[#ff3a00]"
+            className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
           >
             {tag}
           </li>
@@ -283,7 +283,7 @@ export default function AttendPartyPage() {
           />
 
           <motion.h1
-            className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+            className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.45, delay: 0.05 }}
@@ -291,7 +291,7 @@ export default function AttendPartyPage() {
             {isEditView ? "Edit party" : "Add a party"}
           </motion.h1>
           <motion.p
-            className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+            className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
             style={{ color: PAGE_INTRO_BLURB_TEXT }}
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -309,7 +309,7 @@ export default function AttendPartyPage() {
             transition={{ duration: 0.5, delay: 0.15 }}
             aria-label="Party information"
           >
-            <h2 className="text-center share-tech-bold text-[22px] text-[#ff3a00]">Party info</h2>
+            <h2 className="text-center share-tech-bold text-[24px] text-[#ff3a00]">Party info</h2>
             <motion.form
               onSubmit={handleSubmit}
               className="flex flex-col space-y-6"
@@ -318,7 +318,7 @@ export default function AttendPartyPage() {
               transition={{ duration: 0.4, delay: 0.2 }}
             >
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-name" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-name" className="mb-2 block share-tech-regular text-[20px]">
                   Party name
                 </label>
                 <input
@@ -326,14 +326,14 @@ export default function AttendPartyPage() {
                   type="text"
                   value={partyName}
                   onChange={(e) => setPartyName(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                   placeholder="e.g. George's summer cookout"
                   required
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-themes" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-themes" className="mb-2 block share-tech-regular text-[20px]">
                   Party themes (optional)
                 </label>
                 <input
@@ -341,13 +341,13 @@ export default function AttendPartyPage() {
                   type="text"
                   value={partyThemes}
                   onChange={(e) => setPartyThemes(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                   placeholder="e.g. tropical, potluck, costume — comma-separated"
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={2}>
-                <label htmlFor="party-date" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-date" className="mb-2 block share-tech-regular text-[20px]">
                   Date
                 </label>
                 <input
@@ -355,20 +355,20 @@ export default function AttendPartyPage() {
                   type="date"
                   value={partyDate}
                   onChange={(e) => setPartyDate(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                   required
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={3}>
-                <label htmlFor="party-address" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-address" className="mb-2 block share-tech-regular text-[20px]">
                   Address
                 </label>
                 <textarea
                   id="party-address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="share-tech-regular text-[16px]"
+                  className="share-tech-regular text-[18px]"
                   placeholder="Street, city, or place name"
                   rows={3}
                   required
@@ -376,14 +376,14 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-buddy" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-buddy" className="mb-2 block share-tech-regular text-[20px]">
                   Buddy host
                 </label>
                 <select
                   id="party-buddy"
                   value={buddyId}
                   onChange={(e) => setBuddyId(e.target.value)}
-                  className="share-tech-regular text-[16px]"
+                  className="share-tech-regular text-[18px]"
                   required
                 >
                   {buddies.map((b) => (
@@ -395,7 +395,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-bringing" className="mb-2 block share-tech-regular text-[18px]">
+                <label htmlFor="party-bringing" className="mb-2 block share-tech-regular text-[20px]">
                   What are you bringing?
                 </label>
                 <input
@@ -403,7 +403,7 @@ export default function AttendPartyPage() {
                   type="text"
                   value={bringing}
                   onChange={(e) => setBringing(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[16px] outline-none"
+                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
                   placeholder="Dish, drinks, games…"
                   required
                 />
@@ -419,7 +419,7 @@ export default function AttendPartyPage() {
                   fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
                   innerClassName="px-8 py-3"
                 >
-                  <span className="share-tech-regular text-[16px] text-white">
+                  <span className="share-tech-regular text-[18px] text-white">
                     {isEditView ? "Save changes" : "Save party"}
                   </span>
                 </ChalkPillFrame>
@@ -428,7 +428,7 @@ export default function AttendPartyPage() {
               <motion.button
                 type="button"
                 onClick={() => navigate("/party")}
-                className="self-center py-2 share-tech-bold text-[18px] text-[#ff3a00]"
+                className="self-center py-2 share-tech-bold text-[20px] text-[#ff3a00]"
                 whileHover={{ opacity: 0.7 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -464,7 +464,7 @@ export default function AttendPartyPage() {
         />
 
         <motion.h1
-          className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.35rem,4.5vw,1.75rem)] leading-tight text-[#ff3a00]"
+          className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.05 }}
@@ -472,7 +472,7 @@ export default function AttendPartyPage() {
           Buddy party
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[15px] leading-snug"
+          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -490,14 +490,14 @@ export default function AttendPartyPage() {
         >
           <h2
             id="saved-parties-heading"
-            className="text-center share-tech-bold text-[22px] text-[#ff3a00]"
+            className="text-center share-tech-bold text-[24px] text-[#ff3a00]"
           >
             Your saved parties
           </h2>
 
           {savedPlans.length === 0 ? (
             <InfoBoxFrame variant={1}>
-              <p className="share-tech-regular text-[16px] leading-snug">
+              <p className="share-tech-regular text-[18px] leading-snug">
                 Nothing here yet — tap + below to add party details.
               </p>
             </InfoBoxFrame>
@@ -512,26 +512,26 @@ export default function AttendPartyPage() {
                       <InfoBoxFrame variant={index % 4}>
                         {isExpanded ? (
                           <>
-                            <h3 className="mb-2 pr-11 share-tech-bold text-[20px]">{plan.partyName}</h3>
+                            <h3 className="mb-2 pr-11 share-tech-bold text-[22px]">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "expanded")}
-                            <p className="mb-2 share-tech-regular text-[15px] leading-snug">
+                            <p className="mb-2 share-tech-regular text-[17px] leading-snug">
                               <span className="opacity-90">When · </span>
                               {formatDisplayDate(plan.date)}
                             </p>
                             {plan.address ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[15px] leading-snug">
+                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                 <span className="opacity-90">Where · </span>
                                 {plan.address}
                               </p>
                             ) : null}
                             {plan.buddyName ? (
-                              <p className="mb-2 share-tech-regular text-[15px] leading-snug">
+                              <p className="mb-2 share-tech-regular text-[17px] leading-snug">
                                 <span className="opacity-90">Host · </span>
                                 {plan.buddyName}
                               </p>
                             ) : null}
                             {plan.bringing ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[15px] leading-snug">
+                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                 <span className="opacity-90">Bringing · </span>
                                 {plan.bringing}
                               </p>
@@ -548,7 +548,7 @@ export default function AttendPartyPage() {
                                   fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
                                   innerClassName="px-7 py-2.5"
                                 >
-                                  <span className="share-tech-regular text-[15px] text-white">Edit</span>
+                                  <span className="share-tech-regular text-[17px] text-white">Edit</span>
                                 </ChalkPillFrame>
                               </motion.button>
                               <motion.button
@@ -575,20 +575,20 @@ export default function AttendPartyPage() {
                             aria-expanded={false}
                             onClick={() => setExpandedPlanId(plan.id)}
                           >
-                            <h3 className="mb-2 share-tech-bold text-[20px]">{plan.partyName}</h3>
+                            <h3 className="mb-2 share-tech-bold text-[22px]">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "collapsed")}
-                            <p className="mb-2 share-tech-regular text-[14px] leading-snug opacity-90">
+                            <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
                               <span className="opacity-90">When · </span>
                               {formatDisplayDate(plan.date)}
                             </p>
                             {plan.buddyName ? (
-                              <p className="mb-2 share-tech-regular text-[14px] leading-snug opacity-90">
+                              <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
                                 <span className="opacity-90">Host · </span>
                                 {plan.buddyName}
                               </p>
                             ) : null}
                             <p
-                              className="share-tech-regular text-[14px] leading-snug opacity-75"
+                              className="share-tech-regular text-[16px] leading-snug opacity-75"
                               style={{ color: PAGE_INTRO_BLURB_TEXT }}
                             >
                               Tap to open party
@@ -640,14 +640,14 @@ export default function AttendPartyPage() {
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <InfoBoxFrame variant={0}>
-              <p className="share-tech-regular text-[16px] leading-snug">
+              <p className="share-tech-regular text-[18px] leading-snug">
                 Add a buddy first so you can link a party to them.
               </p>
             </InfoBoxFrame>
             <motion.button
               type="button"
               onClick={() => navigate("/add-buddy")}
-              className="w-full py-3 text-center share-tech-bold text-[18px] text-[#ff3a00]"
+              className="w-full py-3 text-center share-tech-bold text-[20px] text-[#ff3a00]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
