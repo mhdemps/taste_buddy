@@ -16,6 +16,9 @@ import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
 const MASCOT_SPRING = { type: "spring" as const, stiffness: 420, damping: 38, mass: 0.85 };
 
+/** Soft ease-out for opacity — longer fade feels smoother */
+const HUB_TAGLINE_EASE = [0.33, 1, 0.68, 1] as const;
+
 function MascotButton({
   isSmiling,
   onClick,
@@ -60,10 +63,15 @@ export default function HomePage() {
       <GrayTasteHeader />
 
       <div className={`${HOME_HERO_STACK_CLASS} pb-40`}>
-        <div className={`${HOME_HERO_HEADLINE_CLASS} text-[#ff3a00]`}>
+        <motion.div
+          className={`${HOME_HERO_HEADLINE_CLASS} text-[#ff3a00]`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.58, ease: HUB_TAGLINE_EASE, delay: 0.12 }}
+        >
           <p className="mb-0">Your buddy for </p>
           <p>culinary exploration!</p>
-        </div>
+        </motion.div>
 
         <div className="flex justify-center">
           <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />

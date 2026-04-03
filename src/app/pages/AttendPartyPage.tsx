@@ -245,19 +245,19 @@ export default function AttendPartyPage() {
     const margin = layout === "expanded" ? "mb-3" : "mb-2";
     const endPad = layout === "expanded" ? " pr-11" : "";
     return (
-      <ul
-        className={`${margin} flex max-w-full flex-wrap gap-1.5${endPad}`}
-        aria-label="Party themes"
-      >
-        {themes.map((tag, ti) => (
-          <li
-            key={`${planId}-theme-${ti}`}
-            className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
-          >
-            {tag}
-          </li>
-        ))}
-      </ul>
+      <div className={`${margin}${endPad}`}>
+        <p className="mb-1.5 share-tech-bold text-[17px] text-[#2d2d2d]">Themes</p>
+        <ul className="flex max-w-full flex-wrap gap-1.5" aria-label="Party themes">
+          {themes.map((tag, ti) => (
+            <li
+              key={`${planId}-theme-${ti}`}
+              className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+      </div>
     );
   }
 
@@ -514,26 +514,26 @@ export default function AttendPartyPage() {
                           <>
                             <h3 className="mb-2 pr-11 share-tech-bold text-[22px]">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "expanded")}
-                            <p className="mb-2 share-tech-regular text-[17px] leading-snug">
-                              <span className="opacity-90">When · </span>
-                              {formatDisplayDate(plan.date)}
+                            <p className="mb-2 text-[17px] leading-snug">
+                              <span className="share-tech-bold text-[#2d2d2d]">When · </span>
+                              <span className="share-tech-regular">{formatDisplayDate(plan.date)}</span>
                             </p>
                             {plan.address ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
-                                <span className="opacity-90">Where · </span>
-                                {plan.address}
+                              <p className="mb-2 whitespace-pre-wrap break-words text-[17px] leading-snug">
+                                <span className="share-tech-bold text-[#2d2d2d]">Where · </span>
+                                <span className="share-tech-regular">{plan.address}</span>
                               </p>
                             ) : null}
                             {plan.buddyName ? (
-                              <p className="mb-2 share-tech-regular text-[17px] leading-snug">
-                                <span className="opacity-90">Host · </span>
-                                {plan.buddyName}
+                              <p className="mb-2 text-[17px] leading-snug">
+                                <span className="share-tech-bold text-[#2d2d2d]">Host · </span>
+                                <span className="share-tech-regular">{plan.buddyName}</span>
                               </p>
                             ) : null}
                             {plan.bringing ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
-                                <span className="opacity-90">Bringing · </span>
-                                {plan.bringing}
+                              <p className="mb-2 whitespace-pre-wrap break-words text-[17px] leading-snug">
+                                <span className="share-tech-bold text-[#2d2d2d]">Bringing · </span>
+                                <span className="share-tech-regular">{plan.bringing}</span>
                               </p>
                             ) : null}
                             <div className="mt-4 flex flex-col items-center gap-3 border-t border-[#c42a08]/15 pt-4">
@@ -577,14 +577,14 @@ export default function AttendPartyPage() {
                           >
                             <h3 className="mb-2 share-tech-bold text-[22px]">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "collapsed")}
-                            <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
-                              <span className="opacity-90">When · </span>
-                              {formatDisplayDate(plan.date)}
+                            <p className="mb-2 text-[16px] leading-snug">
+                              <span className="share-tech-bold text-[#2d2d2d]">When · </span>
+                              <span className="share-tech-regular opacity-90">{formatDisplayDate(plan.date)}</span>
                             </p>
                             {plan.buddyName ? (
-                              <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
-                                <span className="opacity-90">Host · </span>
-                                {plan.buddyName}
+                              <p className="mb-2 text-[16px] leading-snug">
+                                <span className="share-tech-bold text-[#2d2d2d]">Host · </span>
+                                <span className="share-tech-regular opacity-90">{plan.buddyName}</span>
                               </p>
                             ) : null}
                             <p

@@ -459,24 +459,27 @@ export default function FriendRecipePage() {
                           <>
                             <h3 className="mb-2 pr-11 share-tech-bold text-[22px]">{r.recipeName}</h3>
                             {allergyList.length > 0 ? (
-                              <ul className="mb-3 flex max-w-full flex-wrap gap-1.5 pr-11" aria-label="Allergens">
-                                {allergyList.map((tag, ti) => (
-                                  <li
-                                    key={`${r.id}-allergy-${ti}`}
-                                    className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
-                                  >
-                                    {tag}
-                                  </li>
-                                ))}
-                              </ul>
+                              <>
+                                <p className="mb-1.5 pr-11 share-tech-bold text-[17px] text-[#2d2d2d]">Allergies</p>
+                                <ul className="mb-3 flex max-w-full flex-wrap gap-1.5 pr-11" aria-label="Allergens">
+                                  {allergyList.map((tag, ti) => (
+                                    <li
+                                      key={`${r.id}-allergy-${ti}`}
+                                      className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
+                                    >
+                                      {tag}
+                                    </li>
+                                  ))}
+                                </ul>
+                              </>
                             ) : null}
-                            <p className="mb-3 share-tech-regular text-[17px] leading-snug pr-11">
-                              <span className="opacity-90">From · </span>
-                              {r.friendName}
+                            <p className="mb-3 pr-11 text-[17px] leading-snug">
+                              <span className="share-tech-bold text-[#2d2d2d]">From · </span>
+                              <span className="share-tech-regular">{r.friendName}</span>
                             </p>
                             {r.ingredients ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Ingredients</p>
+                                <p className="mb-0.5 share-tech-bold text-[17px] text-[#2d2d2d]">Ingredients</p>
                                 <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.ingredients}
                                 </p>
@@ -484,7 +487,7 @@ export default function FriendRecipePage() {
                             ) : null}
                             {r.directions ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Directions</p>
+                                <p className="mb-0.5 share-tech-bold text-[17px] text-[#2d2d2d]">Directions</p>
                                 <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.directions}
                                 </p>
@@ -492,7 +495,7 @@ export default function FriendRecipePage() {
                             ) : null}
                             {r.notes ? (
                               <div className="mb-2">
-                                <p className="mb-0.5 share-tech-bold text-[16px] opacity-90">Notes</p>
+                                <p className="mb-0.5 share-tech-bold text-[17px] text-[#2d2d2d]">Notes</p>
                                 <p className="whitespace-pre-wrap break-words share-tech-regular text-[17px] leading-snug">
                                   {r.notes}
                                 </p>
@@ -550,9 +553,9 @@ export default function FriendRecipePage() {
                                 ))}
                               </ul>
                             ) : null}
-                            <p className="mb-2 share-tech-regular text-[16px] leading-snug opacity-90">
-                              <span className="opacity-90">From · </span>
-                              {r.friendName}
+                            <p className="mb-2 text-[16px] leading-snug">
+                              <span className="share-tech-bold text-[#2d2d2d]">From · </span>
+                              <span className="share-tech-regular opacity-90">{r.friendName}</span>
                             </p>
                             <p
                               className="share-tech-regular text-[16px] leading-snug opacity-75"
