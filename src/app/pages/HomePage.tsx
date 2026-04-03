@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { motion } from "motion/react";
 import Navigation from "../components/Navigation";
 import GrayTasteHeader from "../components/GrayTasteHeader";
@@ -7,13 +7,12 @@ import {
   HOME_BUDDY_IMG_CLASS,
   HOME_HERO_HEADLINE_CLASS,
   HOME_HERO_STACK_CLASS,
+  MASCOT_SHARED_LAYOUT_ID,
   PAGE_GRADIENT,
   PAGE_HORIZONTAL_PAD,
 } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
-
-const HOME_ENTRANCE_EASE = [0.22, 1, 0.36, 1] as const;
 
 function MascotButton({
   isSmiling,
@@ -28,18 +27,23 @@ function MascotButton({
       onClick={onClick}
       className="flex flex-col items-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/40"
     >
-      <img
+      <motion.img
+        layoutId={MASCOT_SHARED_LAYOUT_ID}
         alt=""
         src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
         className={`${HOME_BUDDY_IMG_CLASS} transition-none`}
         draggable={false}
+        transition={{ type: "spring", stiffness: 380, damping: 34 }}
       />
     </button>
   );
 }
 
 export default function HomePage() {
-  const [isSmiling, setIsSmiling] = useState(false);
+  const location = useLocation();
+  const fromWelcome = Boolean((location.state as { fromWelcome?: boolean } | null)?.fromWelcome);
+  const [isSmiling, setIsSmiling] = useState(fromWelcome);
+
   const navigate = useNavigate();
 
   const handleMascotClick = () => {
@@ -59,14 +63,9 @@ export default function HomePage() {
           <p>culinary exploration!</p>
         </div>
 
-        <motion.div
-          className="flex justify-center"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.34, ease: HOME_ENTRANCE_EASE, delay: 0.04 }}
-        >
+        <div className="flex justify-center">
           <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
-        </motion.div>
+        </div>
       </div>
 
       <Navigation />
