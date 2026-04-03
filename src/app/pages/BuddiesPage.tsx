@@ -80,7 +80,7 @@ function BuddyCard({
           </motion.div>
         </AnimatePresence>
       </motion.button>
-      <p className="-mt-2.5 max-w-[9rem] text-center share-tech-bold text-[24px] leading-none tracking-wide text-[#ff3a00] sm:-mt-3.5 sm:text-[26px]">
+      <p className="-mt-1.5 max-w-[11rem] text-center share-tech-bold text-[clamp(1.5rem,5.2vw,1.9rem)] leading-none tracking-wide text-[#ff3a00] sm:-mt-2 sm:max-w-[12rem] sm:text-[clamp(1.65rem,4vw,2rem)]">
         {name}
       </p>
     </div>
@@ -113,7 +113,7 @@ export default function BuddiesPage() {
           Buddies
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
+          className="mb-5 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -146,7 +146,7 @@ export default function BuddiesPage() {
         <motion.button
           type="button"
           onClick={() => navigate("/add-buddy")}
-          className="mt-14 size-32"
+          className="mt-9 size-32"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.18 }}

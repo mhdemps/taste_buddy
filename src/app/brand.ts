@@ -35,6 +35,6 @@ export const INTRO_MAIN_LAYOUT_CLASS =
 export const HOME_HERO_STACK_CLASS =
   "flex flex-1 flex-col items-center justify-center gap-8 text-center";
 
-/** Two-line hero headline — pair with orange (home) or gray (welcome) color */
+/** Two-line hero headline (regular weight) — add text-[#ff3a00] on each screen */
 export const HOME_HERO_HEADLINE_CLASS =
-  "share-tech-bold max-w-lg px-2 text-[clamp(1.65rem,5.8vw,2.15rem)] leading-snug";
+  "share-tech-regular max-w-lg px-2 text-[clamp(1.65rem,5.8vw,2.15rem)] leading-snug";

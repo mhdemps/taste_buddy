@@ -8,7 +8,6 @@ import {
   INTRO_TO_HOME_BUDDY_SCALE,
   PAGE_GRADIENT,
   PAGE_HORIZONTAL_PAD,
-  PAGE_INTRO_BLURB_TEXT,
 } from "../brand";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
@@ -68,8 +67,7 @@ export default function TextInPage() {
           className="flex w-full max-w-lg flex-col items-center gap-8"
         >
           <motion.div
-            className={`${HOME_HERO_HEADLINE_CLASS} w-full shrink-0`}
-            style={{ color: PAGE_INTRO_BLURB_TEXT }}
+            className={`${HOME_HERO_HEADLINE_CLASS} w-full shrink-0 text-[#ff3a00]`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
