@@ -318,7 +318,7 @@ export default function AttendPartyPage() {
               transition={{ duration: 0.4, delay: 0.2 }}
             >
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-name" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-name" className="mb-2 block share-tech-bold text-[20px]">
                   Party name
                 </label>
                 <input
@@ -333,7 +333,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-themes" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-themes" className="mb-2 block share-tech-bold text-[20px]">
                   Party themes (optional)
                 </label>
                 <input
@@ -347,7 +347,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={2}>
-                <label htmlFor="party-date" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-date" className="mb-2 block share-tech-bold text-[20px]">
                   Date
                 </label>
                 <input
@@ -361,7 +361,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={3}>
-                <label htmlFor="party-address" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-address" className="mb-2 block share-tech-bold text-[20px]">
                   Address
                 </label>
                 <textarea
@@ -376,7 +376,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-buddy" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-buddy" className="mb-2 block share-tech-bold text-[20px]">
                   Buddy host
                 </label>
                 <select
@@ -395,7 +395,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-bringing" className="mb-2 block share-tech-regular text-[20px]">
+                <label htmlFor="party-bringing" className="mb-2 block share-tech-bold text-[20px]">
                   What are you bringing?
                 </label>
                 <input

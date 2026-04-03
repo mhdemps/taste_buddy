@@ -3,7 +3,13 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import Navigation from "../components/Navigation";
 import GrayTasteHeader from "../components/GrayTasteHeader";
-import { HOME_BUDDY_IMG_CLASS, PAGE_GRADIENT, PAGE_HORIZONTAL_PAD } from "../brand";
+import {
+  HOME_BUDDY_IMG_CLASS,
+  HOME_HERO_HEADLINE_CLASS,
+  HOME_HERO_STACK_CLASS,
+  PAGE_GRADIENT,
+  PAGE_HORIZONTAL_PAD,
+} from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
@@ -25,7 +31,7 @@ function MascotButton({
       <img
         alt=""
         src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
-        className="h-auto max-h-[min(240px,38vh)] w-[min(200px,58vw)] max-w-full object-contain object-bottom transition-none select-none"
+        className={`${HOME_BUDDY_IMG_CLASS} transition-none`}
         draggable={false}
       />
     </button>
@@ -47,8 +53,8 @@ export default function HomePage() {
     <div className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`} data-name="home">
       <GrayTasteHeader />
 
-      <div className="flex flex-1 flex-col items-center justify-center gap-8 pb-40 text-center">
-        <div className="share-tech-bold max-w-lg px-2 text-[clamp(1.65rem,5.8vw,2.15rem)] leading-snug text-[#ff3a00]">
+      <div className={`${HOME_HERO_STACK_CLASS} pb-40`}>
+        <div className={`${HOME_HERO_HEADLINE_CLASS} text-[#ff3a00]`}>
           <p className="mb-0">Your buddy for </p>
           <p>culinary exploration!</p>
         </div>

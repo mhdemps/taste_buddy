@@ -239,7 +239,7 @@ export default function FriendRecipePage() {
             transition={{ duration: 0.5, delay: 0.12 }}
           >
             <InfoBoxFrame variant={0}>
-              <label htmlFor="recipe-buddy" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-buddy" className="mb-2 block share-tech-bold text-[20px]">
                 Buddy who shared
               </label>
               <select
@@ -258,7 +258,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="recipe-title" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-title" className="mb-2 block share-tech-bold text-[20px]">
                 Recipe name
               </label>
               <input
@@ -273,7 +273,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={2}>
-              <label htmlFor="recipe-allergies" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-allergies" className="mb-2 block share-tech-bold text-[20px]">
                 Allergy tags (optional)
               </label>
               <input
@@ -287,7 +287,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={3}>
-              <label htmlFor="recipe-ingredients" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-ingredients" className="mb-2 block share-tech-bold text-[20px]">
                 Ingredients &amp; amounts
               </label>
               <textarea
@@ -302,7 +302,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={0}>
-              <label htmlFor="recipe-directions" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-directions" className="mb-2 block share-tech-bold text-[20px]">
                 Directions
               </label>
               <textarea
@@ -317,7 +317,7 @@ export default function FriendRecipePage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="recipe-notes" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="recipe-notes" className="mb-2 block share-tech-bold text-[20px]">
                 Extra notes (optional)
               </label>
               <textarea

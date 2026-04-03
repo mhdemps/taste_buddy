@@ -3,10 +3,12 @@ import { useNavigate } from "react-router";
 import { motion } from "motion/react";
 import GrayTasteHeader from "../components/GrayTasteHeader";
 import {
-  INTRO_MAIN_LAYOUT_CLASS,
+  HOME_HERO_HEADLINE_CLASS,
+  HOME_HERO_STACK_CLASS,
   INTRO_TO_HOME_BUDDY_SCALE,
   PAGE_GRADIENT,
   PAGE_HORIZONTAL_PAD,
+  PAGE_INTRO_BLURB_TEXT,
 } from "../brand";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
@@ -47,7 +49,7 @@ export default function TextInPage() {
       <GrayTasteHeader />
 
       <div
-        className={`${INTRO_MAIN_LAYOUT_CLASS} cursor-default outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/45 focus-visible:ring-offset-4 focus-visible:ring-offset-[#ffd5bc]`}
+        className={`${HOME_HERO_STACK_CLASS} shrink-0 cursor-default pb-24 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/45 focus-visible:ring-offset-4 focus-visible:ring-offset-[#ffd5bc] sm:pb-28`}
         onClick={skipToHome}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
@@ -60,13 +62,14 @@ export default function TextInPage() {
         aria-label="Continue to home — happens automatically, or tap to skip."
       >
         <motion.div
-          className="relative flex flex-col items-center"
           initial={{ opacity: 1 }}
           animate={leaving ? { opacity: 0 } : { opacity: 1 }}
           transition={{ duration: LEAVE_FADE_MS / 1000, ease: SMOOTH_EASE }}
+          className="flex w-full max-w-lg flex-col items-center gap-8"
         >
           <motion.div
-            className="absolute bottom-full left-1/2 z-10 mb-12 w-[min(100%,22rem)] -translate-x-1/2 text-center share-tech-bold text-[clamp(1.9rem,6.2vw,2.4rem)] leading-tight text-[#ff3a00] sm:mb-14"
+            className={`${HOME_HERO_HEADLINE_CLASS} w-full shrink-0`}
+            style={{ color: PAGE_INTRO_BLURB_TEXT }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
@@ -80,7 +83,7 @@ export default function TextInPage() {
           </motion.div>
 
           <motion.div
-            className="flex origin-bottom items-end justify-center"
+            className="flex w-full shrink-0 origin-bottom items-end justify-center"
             initial={{ scale: 1 }}
             animate={{ scale: INTRO_TO_HOME_BUDDY_SCALE }}
             transition={{

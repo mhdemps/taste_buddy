@@ -221,7 +221,7 @@ export default function MyRecipesPage() {
             transition={{ duration: 0.5, delay: 0.12 }}
           >
             <InfoBoxFrame variant={0}>
-              <label htmlFor="my-recipe-title" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="my-recipe-title" className="mb-2 block share-tech-bold text-[20px]">
                 Recipe name
               </label>
               <input
@@ -236,7 +236,7 @@ export default function MyRecipesPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={1}>
-              <label htmlFor="my-recipe-allergies" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="my-recipe-allergies" className="mb-2 block share-tech-bold text-[20px]">
                 Allergy tags (optional)
               </label>
               <input
@@ -250,7 +250,7 @@ export default function MyRecipesPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={2}>
-              <label htmlFor="my-recipe-ingredients" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="my-recipe-ingredients" className="mb-2 block share-tech-bold text-[20px]">
                 Ingredients &amp; amounts
               </label>
               <textarea
@@ -265,7 +265,7 @@ export default function MyRecipesPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={3}>
-              <label htmlFor="my-recipe-directions" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="my-recipe-directions" className="mb-2 block share-tech-bold text-[20px]">
                 Directions
               </label>
               <textarea
@@ -280,7 +280,7 @@ export default function MyRecipesPage() {
             </InfoBoxFrame>
 
             <InfoBoxFrame variant={0}>
-              <label htmlFor="my-recipe-notes" className="mb-2 block share-tech-regular text-[20px]">
+              <label htmlFor="my-recipe-notes" className="mb-2 block share-tech-bold text-[20px]">
                 Notes (optional)
               </label>
               <textarea
