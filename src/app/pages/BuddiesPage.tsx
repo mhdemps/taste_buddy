@@ -35,7 +35,7 @@ function BuddyCard({
 
   return (
     <div className="flex flex-col items-center">
-      <div className="w-full max-sm:origin-top max-sm:scale-[1.14]">
+      <div className="w-full max-sm:origin-top max-sm:scale-[1.28]">
         <motion.button
           type="button"
           onClick={handleClick}
@@ -82,7 +82,7 @@ function BuddyCard({
         </AnimatePresence>
         </motion.button>
       </div>
-      <p className="-mt-2 max-w-[11rem] text-center share-tech-bold text-[clamp(1.5rem,5.2vw,1.9rem)] leading-none tracking-wide text-[#ff3a00] max-sm:-mt-2.5 sm:-mt-2 sm:max-w-[12rem] sm:text-[clamp(1.65rem,4vw,2rem)]">
+      <p className="-mt-7 max-w-[11rem] text-center share-tech-bold text-[clamp(1.5rem,5.2vw,1.9rem)] leading-none tracking-wide text-[#ff3a00] max-sm:-mt-9 sm:-mt-8 sm:max-w-[12rem] sm:text-[clamp(1.65rem,4vw,2rem)]">
         {name}
       </p>
     </div>
@@ -124,9 +124,9 @@ export default function BuddiesPage() {
           Tap a buddy for their profile — use + to add another Taste Buddy.
         </motion.p>
 
-        <div className="mx-auto w-full max-w-[40rem] overflow-visible px-1.5 sm:max-w-[48rem] sm:px-3">
+        <div className="mx-auto w-full max-w-[40rem] overflow-visible px-0 max-sm:-mx-3 sm:max-w-[48rem] sm:px-3">
           <motion.div
-            className="grid grid-cols-2 gap-x-3 gap-y-11 overflow-visible sm:gap-x-6 sm:gap-y-12"
+            className="grid grid-cols-2 gap-x-2 gap-y-11 overflow-visible sm:gap-x-6 sm:gap-y-12"
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.12 }}

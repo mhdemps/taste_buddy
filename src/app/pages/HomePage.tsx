@@ -14,6 +14,8 @@ import {
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
+const MASCOT_SPRING = { type: "spring" as const, stiffness: 420, damping: 38, mass: 0.85 };
+
 function MascotButton({
   isSmiling,
   onClick,
@@ -33,7 +35,7 @@ function MascotButton({
         src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
         className={`${HOME_BUDDY_IMG_CLASS} transition-none`}
         draggable={false}
-        transition={{ type: "spring", stiffness: 380, damping: 34 }}
+        transition={MASCOT_SPRING}
       />
     </button>
   );

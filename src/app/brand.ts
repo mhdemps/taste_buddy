@@ -17,6 +17,9 @@ export const PAGE_INTRO_BLURB_TEXT = "#5a5a5a";
 export const INTRO_BUDDY_IMG_CLASS =
   "max-h-[min(380px,48vh)] w-auto max-w-[min(280px,78vw)] object-contain object-bottom select-none";
 
+/** /welcome: scale HOME-sized asset up to intro visual size, then animate to 1 (matches /home layoutId) */
+export const WELCOME_MASCOT_INITIAL_SCALE = 380 / 240;
+
 /** Home hub mascot — matches end state of welcome → home layout morph */
 export const HOME_BUDDY_IMG_CLASS =
   "h-auto max-h-[min(240px,38vh)] w-[min(200px,58vw)] max-w-full object-contain object-bottom select-none";
