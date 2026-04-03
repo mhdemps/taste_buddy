@@ -34,8 +34,8 @@ function BuddyCard({
   };
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="w-full max-sm:origin-top max-sm:scale-[1.28]">
+    <div className="flex w-full min-w-0 flex-col items-center overflow-visible py-0.5">
+      <div className="z-0 w-full max-sm:origin-top max-sm:scale-[1.1]">
         <motion.button
           type="button"
           onClick={handleClick}
@@ -82,7 +82,17 @@ function BuddyCard({
         </AnimatePresence>
         </motion.button>
       </div>
-      <p className="-mt-7 max-w-[11rem] text-center share-tech-bold text-[clamp(1.5rem,5.2vw,1.9rem)] leading-none tracking-wide text-[#ff3a00] max-sm:-mt-9 sm:-mt-8 sm:max-w-[12rem] sm:text-[clamp(1.65rem,4vw,2rem)]">
+      <p
+        className="relative z-20 mt-2.5 w-full max-w-full shrink-0 px-1 text-center share-tech-bold tracking-wide leading-snug sm:mt-3"
+        style={{
+          color: "#ff3a00",
+          /* Inline size avoids Tailwind `text-[size]` vs `text-[color]` clashes on mobile */
+          fontSize: "clamp(15px, 4.8vw, 2rem)",
+          wordBreak: "break-word",
+          overflowWrap: "anywhere",
+          WebkitTextSizeAdjust: "100%",
+        }}
+      >
         {name}
       </p>
     </div>
@@ -126,7 +136,7 @@ export default function BuddiesPage() {
 
         <div className="mx-auto w-full max-w-[40rem] overflow-visible px-0 max-sm:-mx-3 sm:max-w-[48rem] sm:px-3">
           <motion.div
-            className="grid grid-cols-2 gap-x-2 gap-y-11 overflow-visible sm:gap-x-6 sm:gap-y-12"
+            className="grid grid-cols-2 gap-x-2 gap-y-12 overflow-visible sm:gap-x-6 sm:gap-y-14"
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.12 }}
