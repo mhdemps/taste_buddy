@@ -8,9 +8,8 @@ import { InfoBoxFrame } from "../components/InfoBoxFrame";
 import { ChalkPillFrame } from "../components/ChalkPillFrame";
 import {
   INFO_PANEL_TEXT,
-  PAGE_GRADIENT,
-  PAGE_HORIZONTAL_PAD,
   PAGE_INTRO_BLURB_TEXT,
+  PAGE_SHELL_SCROLL,
 } from "../brand";
 import imgPartyPlus from "@project-assets/madison-is-pretty.png";
 import imgRemoveParty from "@project-assets/party-remove-x.png";
@@ -21,7 +20,6 @@ const STORAGE_KEY = "tasteBuddyPartyPlans";
 export type PartyPlanEntry = {
   id: string;
   partyName: string;
-  /** Comma- or semicolon-separated party theme tags */
   partyThemes: string;
   date: string;
   address: string;
@@ -45,11 +43,7 @@ function normalizePartyEntry(raw: unknown): PartyPlanEntry | null {
   if (typeof o.id !== "string" || !o.id) return null;
   const buddyName = typeof o.buddyName === "string" ? o.buddyName : "";
   const legacyName =
-    typeof o.partyName === "string"
-      ? o.partyName
-      : buddyName
-        ? `${buddyName}'s party`
-        : "Party";
+    typeof o.partyName === "string" ? o.partyName : buddyName ? `${buddyName}'s party` : "Party";
   return {
     id: o.id,
     partyName: legacyName,
@@ -76,9 +70,7 @@ function loadPartyPlans(): PartyPlanEntry[] {
 }
 
 function sortPlansNewestFirst(list: PartyPlanEntry[]) {
-  return [...list].sort(
-    (a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime()
-  );
+  return [...list].sort((a, b) => new Date(b.savedAt).getTime() - new Date(a.savedAt).getTime());
 }
 
 function persistPlans(list: PartyPlanEntry[]) {
@@ -97,6 +89,23 @@ function formatDisplayDate(isoDate: string): string {
   });
 }
 
+function renderThemePills(planId: string, themes: string[], layout: "collapsed" | "expanded") {
+  if (themes.length === 0) return null;
+  const wrapClass = layout === "expanded" ? "tb-theme-pills-wrap--expanded" : "tb-theme-pills-wrap--collapsed";
+  return (
+    <div className={wrapClass}>
+      <p className="tb-theme-label share-tech-bold">Themes</p>
+      <ul className="tb-allergy-list" aria-label="Party themes">
+        {themes.map((tag, ti) => (
+          <li key={`${planId}-theme-${ti}`} className="tb-allergy-pill share-tech-bold">
+            {tag}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export default function AttendPartyPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -105,9 +114,7 @@ export default function AttendPartyPage() {
   const isEditView = Boolean(editPartyId);
   const isFormView = isAddView || isEditView;
   const { buddies } = useBuddies();
-  const [savedPlans, setSavedPlans] = useState<PartyPlanEntry[]>(() =>
-    sortPlansNewestFirst(loadPartyPlans())
-  );
+  const [savedPlans, setSavedPlans] = useState<PartyPlanEntry[]>(() => sortPlansNewestFirst(loadPartyPlans()));
 
   const [expandedPlanId, setExpandedPlanId] = useState<string | null>(null);
 
@@ -158,10 +165,7 @@ export default function AttendPartyPage() {
     setBringing(found.bringing);
   }, [isAddView, editPartyId, navigate, buddies]);
 
-  const selectedBuddy = useMemo(
-    () => buddies.find((b) => b.id === buddyId),
-    [buddies, buddyId]
-  );
+  const selectedBuddy = useMemo(() => buddies.find((b) => b.id === buddyId), [buddies, buddyId]);
 
   const goToAddParty = () => {
     if (buddies.length === 0) {
@@ -172,11 +176,7 @@ export default function AttendPartyPage() {
   };
 
   const handleDeleteParty = (plan: PartyPlanEntry) => {
-    if (
-      !confirm(
-        `Remove "${plan.partyName}" from your saved parties?`
-      )
-    ) {
+    if (!confirm(`Remove "${plan.partyName}" from your saved parties?`)) {
       return;
     }
     persistPlans(loadPartyPlans().filter((p) => p.id !== plan.id));
@@ -240,34 +240,13 @@ export default function AttendPartyPage() {
     navigate("/party");
   };
 
-  function renderThemePills(planId: string, themes: string[], layout: "collapsed" | "expanded") {
-    if (themes.length === 0) return null;
-    const margin = layout === "expanded" ? "mb-3" : "mb-2";
-    const endPad = layout === "expanded" ? " pr-11" : "";
-    return (
-      <div className={`${margin}${endPad}`}>
-        <p className="mb-1.5 share-tech-bold text-[17px] text-[#2d2d2d]">Themes</p>
-        <ul className="flex max-w-full flex-wrap gap-1.5" aria-label="Party themes">
-          {themes.map((tag, ti) => (
-            <li
-              key={`${planId}-theme-${ti}`}
-              className="shrink-0 rounded-full border border-[#c42a08]/40 bg-[#fff5f2] px-2.5 py-0.5 share-tech-bold text-[13px] leading-tight text-[#ff3a00]"
-            >
-              {tag}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
   if (isFormView && buddies.length > 0) {
     return (
-      <div className={`flex min-h-screen flex-col overflow-x-hidden overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}>
+      <div className={PAGE_SHELL_SCROLL}>
         <GrayTasteHeader />
 
         <motion.div
-          className="flex flex-1 flex-col items-center pb-44 pt-2"
+          className="tb-main-column"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5 }}
@@ -276,14 +255,14 @@ export default function AttendPartyPage() {
             alt=""
             src={imgPartyTopBuddy}
             draggable={false}
-            className="mb-4 h-auto w-[min(220px,58vw)] max-w-full select-none object-contain"
+            className="tb-hero-decor-party"
             initial={{ scale: 0.88, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 22, delay: 0.02 }}
           />
 
           <motion.h1
-            className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
+            className="tb-page-title tb-page-title--roomy share-tech-bold tb-text-coral"
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.45, delay: 0.05 }}
@@ -291,7 +270,7 @@ export default function AttendPartyPage() {
             {isEditView ? "Edit party" : "Add a party"}
           </motion.h1>
           <motion.p
-            className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
+            className="tb-intro-blurb share-tech-regular"
             style={{ color: PAGE_INTRO_BLURB_TEXT }}
             initial={{ y: 12, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -303,22 +282,22 @@ export default function AttendPartyPage() {
           </motion.p>
 
           <motion.section
-            className="flex w-full max-w-[340px] flex-col gap-4"
+            className="tb-section-narrow"
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.15 }}
             aria-label="Party information"
           >
-            <h2 className="text-center share-tech-bold text-[24px] text-[#ff3a00]">Party info</h2>
+            <h2 className="tb-section-heading share-tech-bold tb-text-coral">Party info</h2>
             <motion.form
               onSubmit={handleSubmit}
-              className="flex flex-col space-y-6"
+              className="tb-form-stack"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.4, delay: 0.2 }}
             >
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-name" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-name" className="tb-field-label-bold share-tech-bold">
                   Party name
                 </label>
                 <input
@@ -326,14 +305,14 @@ export default function AttendPartyPage() {
                   type="text"
                   value={partyName}
                   onChange={(e) => setPartyName(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
+                  className="tb-input-plain share-tech-regular"
                   placeholder="e.g. George's summer cookout"
                   required
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-themes" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-themes" className="tb-field-label-bold share-tech-bold">
                   Party themes (optional)
                 </label>
                 <input
@@ -341,13 +320,13 @@ export default function AttendPartyPage() {
                   type="text"
                   value={partyThemes}
                   onChange={(e) => setPartyThemes(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
+                  className="tb-input-plain share-tech-regular"
                   placeholder="e.g. tropical, potluck, costume — comma-separated"
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={2}>
-                <label htmlFor="party-date" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-date" className="tb-field-label-bold share-tech-bold">
                   Date
                 </label>
                 <input
@@ -355,20 +334,20 @@ export default function AttendPartyPage() {
                   type="date"
                   value={partyDate}
                   onChange={(e) => setPartyDate(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
+                  className="tb-input-plain share-tech-regular"
                   required
                 />
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={3}>
-                <label htmlFor="party-address" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-address" className="tb-field-label-bold share-tech-bold">
                   Address
                 </label>
                 <textarea
                   id="party-address"
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
-                  className="share-tech-regular text-[18px]"
+                  className="tb-textarea-plain share-tech-regular"
                   placeholder="Street, city, or place name"
                   rows={3}
                   required
@@ -376,18 +355,18 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={0}>
-                <label htmlFor="party-buddy" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-buddy" className="tb-field-label-bold share-tech-bold">
                   Buddy host
                 </label>
                 <select
                   id="party-buddy"
                   value={buddyId}
                   onChange={(e) => setBuddyId(e.target.value)}
-                  className="share-tech-regular text-[18px]"
+                  className="tb-select-plain share-tech-regular"
                   required
                 >
                   {buddies.map((b) => (
-                    <option key={b.id} value={b.id} className="text-[#2d2d2d]">
+                    <option key={b.id} value={b.id} className="tb-option-dark">
                       {b.name}
                     </option>
                   ))}
@@ -395,7 +374,7 @@ export default function AttendPartyPage() {
               </InfoBoxFrame>
 
               <InfoBoxFrame variant={1}>
-                <label htmlFor="party-bringing" className="mb-2 block share-tech-bold text-[20px]">
+                <label htmlFor="party-bringing" className="tb-field-label-bold share-tech-bold">
                   What are you bringing?
                 </label>
                 <input
@@ -403,23 +382,15 @@ export default function AttendPartyPage() {
                   type="text"
                   value={bringing}
                   onChange={(e) => setBringing(e.target.value)}
-                  className="w-full border-none bg-transparent share-tech-regular text-[18px] outline-none"
+                  className="tb-input-plain share-tech-regular"
                   placeholder="Dish, drinks, games…"
                   required
                 />
               </InfoBoxFrame>
 
-              <motion.button
-                type="submit"
-                className="self-center border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50"
-                whileTap={{ scale: 0.97 }}
-              >
-                <ChalkPillFrame
-                  variant={3}
-                  fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
-                  innerClassName="px-8 py-3"
-                >
-                  <span className="share-tech-regular text-[18px] text-white">
+              <motion.button type="submit" className="tb-submit-wrap" whileTap={{ scale: 0.97 }}>
+                <ChalkPillFrame variant={3} fillClassName="tb-pill-fill-coral" innerClassName="tb-pill-inner tb-pill-inner--lg">
+                  <span className="tb-pill-text-white share-tech-regular">
                     {isEditView ? "Save changes" : "Save party"}
                   </span>
                 </ChalkPillFrame>
@@ -428,7 +399,7 @@ export default function AttendPartyPage() {
               <motion.button
                 type="button"
                 onClick={() => navigate("/party")}
-                className="self-center py-2 share-tech-bold text-[20px] text-[#ff3a00]"
+                className="tb-link-cancel share-tech-bold tb-text-coral"
                 whileHover={{ opacity: 0.7 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -444,11 +415,11 @@ export default function AttendPartyPage() {
   }
 
   return (
-    <div className={`flex min-h-screen flex-col overflow-x-hidden overflow-y-auto ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}>
+    <div className={PAGE_SHELL_SCROLL}>
       <GrayTasteHeader />
 
       <motion.div
-        className="flex flex-1 flex-col items-center pb-44 pt-2"
+        className="tb-main-column"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5 }}
@@ -457,14 +428,14 @@ export default function AttendPartyPage() {
           alt=""
           src={imgPartyTopBuddy}
           draggable={false}
-          className="mb-4 h-auto w-[min(220px,58vw)] max-w-full select-none object-contain"
+          className="tb-hero-decor-party"
           initial={{ scale: 0.88, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 22, delay: 0.02 }}
         />
 
         <motion.h1
-          className="mb-6 max-w-[340px] text-center share-tech-bold text-[clamp(1.5rem,4.8vw,1.9rem)] leading-tight text-[#ff3a00]"
+          className="tb-page-title tb-page-title--roomy share-tech-bold tb-text-coral"
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.05 }}
@@ -472,7 +443,7 @@ export default function AttendPartyPage() {
           Buddy party
         </motion.h1>
         <motion.p
-          className="mb-8 max-w-[340px] text-center share-tech-regular text-[17px] leading-snug"
+          className="tb-intro-blurb share-tech-regular"
           style={{ color: PAGE_INTRO_BLURB_TEXT }}
           initial={{ y: 12, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -482,115 +453,104 @@ export default function AttendPartyPage() {
         </motion.p>
 
         <motion.section
-          className="mb-2 flex w-full max-w-[340px] flex-col gap-4"
+          className="tb-section-narrow tb-section-narrow--mb"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.45, delay: 0.15 }}
           aria-labelledby="saved-parties-heading"
         >
-          <h2
-            id="saved-parties-heading"
-            className="text-center share-tech-bold text-[24px] text-[#ff3a00]"
-          >
+          <h2 id="saved-parties-heading" className="tb-section-heading share-tech-bold tb-text-coral">
             Your saved parties
           </h2>
 
           {savedPlans.length === 0 ? (
             <InfoBoxFrame variant={1}>
-              <p className="share-tech-regular text-[18px] leading-snug">
+              <p className="share-tech-regular" style={{ fontSize: 18, lineHeight: 1.375 }}>
                 Nothing here yet — tap + below to add party details.
               </p>
             </InfoBoxFrame>
           ) : (
-            <ul className="flex list-none flex-col gap-5 p-0">
+            <ul className="tb-saved-list">
               {savedPlans.map((plan, index) => {
                 const isExpanded = expandedPlanId === plan.id;
                 const themeList = parsePartyThemes(plan.partyThemes);
                 return (
-                  <li key={plan.id} className="relative w-full">
-                    <div className="relative w-full">
+                  <li key={plan.id} className="tb-li-relative">
+                    <div className="tb-card-relative">
                       <InfoBoxFrame variant={index % 4}>
                         {isExpanded ? (
                           <>
-                            <h3 className="mb-2 pr-11 share-tech-bold text-[22px]">{plan.partyName}</h3>
+                            <h3 className="tb-recipe-h3 tb-recipe-h3--pad share-tech-bold">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "expanded")}
-                            <p className="mb-2 text-[17px] leading-snug">
-                              <span className="share-tech-bold text-[#2d2d2d]">When · </span>
+                            <p className="tb-party-detail-line">
+                              <span className="share-tech-bold tb-text-panel">When · </span>
                               <span className="share-tech-regular">{formatDisplayDate(plan.date)}</span>
                             </p>
                             {plan.address ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words text-[17px] leading-snug">
-                                <span className="share-tech-bold text-[#2d2d2d]">Where · </span>
+                              <p className="tb-party-detail-line--wrap">
+                                <span className="share-tech-bold tb-text-panel">Where · </span>
                                 <span className="share-tech-regular">{plan.address}</span>
                               </p>
                             ) : null}
                             {plan.buddyName ? (
-                              <p className="mb-2 text-[17px] leading-snug">
-                                <span className="share-tech-bold text-[#2d2d2d]">Host · </span>
+                              <p className="tb-party-detail-line">
+                                <span className="share-tech-bold tb-text-panel">Host · </span>
                                 <span className="share-tech-regular">{plan.buddyName}</span>
                               </p>
                             ) : null}
                             {plan.bringing ? (
-                              <p className="mb-2 whitespace-pre-wrap break-words text-[17px] leading-snug">
-                                <span className="share-tech-bold text-[#2d2d2d]">Bringing · </span>
+                              <p className="tb-party-detail-line--wrap">
+                                <span className="share-tech-bold tb-text-panel">Bringing · </span>
                                 <span className="share-tech-regular">{plan.bringing}</span>
                               </p>
                             ) : null}
-                            <div className="mt-4 flex flex-col items-center gap-3 border-t border-[#c42a08]/15 pt-4">
+                            <div className="tb-recipe-actions">
                               <motion.button
                                 type="button"
-                                className="border-0 bg-transparent p-0 outline-none focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50"
+                                className="tb-submit-wrap"
                                 onClick={() => navigate(`/party/edit/${plan.id}`)}
                                 whileTap={{ scale: 0.97 }}
                               >
                                 <ChalkPillFrame
                                   variant={(index + 1) % 4}
-                                  fillClassName="border-2 border-[#e83500]/55 bg-[#ff3a00] shadow-[0_2px_14px_rgba(255,58,0,0.28)]"
-                                  innerClassName="px-7 py-2.5"
+                                  fillClassName="tb-pill-fill-coral"
+                                  innerClassName="tb-pill-inner tb-pill-inner--md"
                                 >
-                                  <span className="share-tech-regular text-[17px] text-white">Edit</span>
+                                  <span className="tb-pill-text-white--sm share-tech-regular">Edit</span>
                                 </ChalkPillFrame>
                               </motion.button>
                               <motion.button
                                 type="button"
                                 onClick={() => handleDeleteParty(plan)}
-                                className="flex h-6 w-6 items-center justify-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-md focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50"
+                                className="tb-icon-btn"
                                 aria-label={`Remove ${plan.partyName} from saved parties`}
                                 whileHover={{ scale: 1.06, opacity: 0.88 }}
                                 whileTap={{ scale: 0.94 }}
                               >
-                                <img
-                                  alt=""
-                                  src={imgRemoveParty}
-                                  draggable={false}
-                                  className="pointer-events-none block max-h-3 max-w-3 shrink-0 object-contain"
-                                />
+                                <img alt="" src={imgRemoveParty} draggable={false} className="tb-icon-x-img" />
                               </motion.button>
                             </div>
                           </>
                         ) : (
                           <button
                             type="button"
-                            className="w-full cursor-pointer border-0 bg-transparent p-0 text-left outline-none focus-visible:ring-2 focus-visible:ring-[#ff3a00]/40 focus-visible:ring-offset-2"
+                            className="tb-expand-hit"
                             aria-expanded={false}
                             onClick={() => setExpandedPlanId(plan.id)}
                           >
-                            <h3 className="mb-2 share-tech-bold text-[22px]">{plan.partyName}</h3>
+                            <h3 className="tb-recipe-h3 share-tech-bold">{plan.partyName}</h3>
                             {renderThemePills(plan.id, themeList, "collapsed")}
-                            <p className="mb-2 text-[16px] leading-snug">
-                              <span className="share-tech-bold text-[#2d2d2d]">When · </span>
-                              <span className="share-tech-regular opacity-90">{formatDisplayDate(plan.date)}</span>
+                            <p className="tb-party-collapsed-when">
+                              <span className="share-tech-bold tb-text-panel">When · </span>
+                              <span className="share-tech-regular tb-opacity-90">{formatDisplayDate(plan.date)}</span>
                             </p>
                             {plan.buddyName ? (
-                              <p className="mb-2 text-[16px] leading-snug">
-                                <span className="share-tech-bold text-[#2d2d2d]">Host · </span>
-                                <span className="share-tech-regular opacity-90">{plan.buddyName}</span>
+                              <p className="tb-party-collapsed-when">
+                                <span className="share-tech-bold tb-text-panel">Host · </span>
+                                <span className="share-tech-regular tb-opacity-90">{plan.buddyName}</span>
                               </p>
                             ) : null}
-                            <p
-                              className="share-tech-regular text-[16px] leading-snug opacity-75"
-                              style={{ color: PAGE_INTRO_BLURB_TEXT }}
-                            >
+                            <p className="tb-muted-hint share-tech-regular" style={{ color: PAGE_INTRO_BLURB_TEXT }}>
                               Tap to open party
                             </p>
                           </button>
@@ -600,7 +560,7 @@ export default function AttendPartyPage() {
                         <motion.button
                           type="button"
                           onClick={() => setExpandedPlanId(null)}
-                          className="absolute right-2.5 top-2.5 z-20 flex h-8 w-8 items-center justify-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-md focus-visible:ring-2 focus-visible:ring-[#ff3a00]/40"
+                          className="tb-chevron-btn"
                           aria-label="Minimize party"
                           whileHover={{ opacity: 0.75 }}
                           whileTap={{ scale: 0.94 }}
@@ -612,7 +572,7 @@ export default function AttendPartyPage() {
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
                             aria-hidden
-                            className="shrink-0"
+                            className="tb-shrink-0"
                           >
                             <path
                               d="M6 14l6-6 6 6"
@@ -634,20 +594,20 @@ export default function AttendPartyPage() {
 
         {buddies.length === 0 ? (
           <motion.div
-            className="mt-6 flex w-full max-w-[340px] flex-col gap-6"
+            className="tb-empty-block"
             initial={{ y: 16, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
             <InfoBoxFrame variant={0}>
-              <p className="share-tech-regular text-[18px] leading-snug">
+              <p className="share-tech-regular" style={{ fontSize: 18, lineHeight: 1.375 }}>
                 Add a buddy first so you can link a party to them.
               </p>
             </InfoBoxFrame>
             <motion.button
               type="button"
               onClick={() => navigate("/add-buddy")}
-              className="w-full py-3 text-center share-tech-bold text-[20px] text-[#ff3a00]"
+              className="tb-link-wide share-tech-bold"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
@@ -658,7 +618,7 @@ export default function AttendPartyPage() {
           <motion.button
             type="button"
             onClick={goToAddParty}
-            className="mt-14 size-32"
+            className="tb-fab-add"
             aria-label="Add a party"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -666,12 +626,7 @@ export default function AttendPartyPage() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <img
-              alt=""
-              className="h-full w-full object-contain"
-              src={imgPartyPlus}
-              draggable={false}
-            />
+            <img alt="" className="tb-img-contain-full" src={imgPartyPlus} draggable={false} />
           </motion.button>
         )}
       </motion.div>

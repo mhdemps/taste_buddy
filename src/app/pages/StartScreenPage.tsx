@@ -7,8 +7,7 @@ import {
   HOME_HERO_STACK_CLASS,
   INTRO_BUDDY_IMG_CLASS,
   MASCOT_SHARED_LAYOUT_ID,
-  PAGE_GRADIENT,
-  PAGE_HORIZONTAL_PAD,
+  PAGE_SHELL,
 } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
@@ -24,26 +23,19 @@ export default function StartScreenPage() {
   };
 
   return (
-    <div
-      className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`}
-      data-name="Start Screen"
-    >
+    <div className={PAGE_SHELL} data-name="Start Screen">
       <GrayTasteHeader />
 
-      {/* Same stack measure as home so the shared mascot layoutId lands in the same slot */}
-      <div className={`${HOME_HERO_STACK_CLASS} pb-40`}>
-        <div
-          className={`${HOME_HERO_HEADLINE_CLASS} pointer-events-none invisible w-full select-none text-[#ff3a00]`}
-          aria-hidden
-        >
-          <p className="mb-0">Your buddy for </p>
+      <div className={`${HOME_HERO_STACK_CLASS} tb-hero-stack--pb40`}>
+        <div className={`${HOME_HERO_HEADLINE_CLASS} tb-hero-headline--hidden tb-text-coral`} aria-hidden>
+          <p style={{ marginBottom: 0 }}>Your buddy for </p>
           <p>culinary exploration!</p>
         </div>
 
-        <div className="flex justify-center">
+        <div className="tb-row-center">
           <button
             type="button"
-            className="m-0 flex cursor-pointer flex-col items-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50 focus-visible:ring-offset-4 focus-visible:ring-offset-[#ffd5bc]"
+            className="tb-mascot-hit tb-mascot-hit--start"
             onClick={handleBuddyClick}
             onKeyDown={(e) => {
               if (e.key === "Enter" || e.key === " ") {

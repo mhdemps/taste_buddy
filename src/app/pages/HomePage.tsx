@@ -8,15 +8,13 @@ import {
   HOME_HERO_HEADLINE_CLASS,
   HOME_HERO_STACK_CLASS,
   MASCOT_SHARED_LAYOUT_ID,
-  PAGE_GRADIENT,
-  PAGE_HORIZONTAL_PAD,
+  PAGE_SHELL,
 } from "../brand";
 import imgOrangeShadow from "@project-assets/orange shadow.png";
 import imgOrangeSmileShadow from "@project-assets/orange smile shadow.png";
 
 const MASCOT_SPRING = { type: "spring" as const, stiffness: 420, damping: 38, mass: 0.85 };
 
-/** Soft ease-out for opacity — longer fade feels smoother */
 const HUB_TAGLINE_EASE = [0.33, 1, 0.68, 1] as const;
 
 function MascotButton({
@@ -27,16 +25,12 @@ function MascotButton({
   onClick: () => void;
 }) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex flex-col items-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-3xl focus-visible:ring-2 focus-visible:ring-[#ff3a00]/40"
-    >
+    <button type="button" onClick={onClick} className="tb-mascot-hit">
       <motion.img
         layoutId={MASCOT_SHARED_LAYOUT_ID}
         alt=""
         src={isSmiling ? imgOrangeSmileShadow : imgOrangeShadow}
-        className={`${HOME_BUDDY_IMG_CLASS} transition-none`}
+        className={`${HOME_BUDDY_IMG_CLASS} tb-img-no-transition`}
         draggable={false}
         transition={MASCOT_SPRING}
       />
@@ -59,21 +53,21 @@ export default function HomePage() {
   };
 
   return (
-    <div className={`flex min-h-screen flex-col ${PAGE_GRADIENT} ${PAGE_HORIZONTAL_PAD}`} data-name="home">
+    <div className={PAGE_SHELL} data-name="home">
       <GrayTasteHeader />
 
-      <div className={`${HOME_HERO_STACK_CLASS} pb-40`}>
+      <div className={`${HOME_HERO_STACK_CLASS} tb-hero-stack--pb40`}>
         <motion.div
-          className={`${HOME_HERO_HEADLINE_CLASS} text-[#ff3a00]`}
+          className={`${HOME_HERO_HEADLINE_CLASS} tb-text-coral`}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.58, ease: HUB_TAGLINE_EASE, delay: 0.12 }}
         >
-          <p className="mb-0">Your buddy for </p>
+          <p style={{ marginBottom: 0 }}>Your buddy for </p>
           <p>culinary exploration!</p>
         </motion.div>
 
-        <div className="flex justify-center">
+        <div className="tb-row-center">
           <MascotButton isSmiling={isSmiling} onClick={handleMascotClick} />
         </div>
       </div>

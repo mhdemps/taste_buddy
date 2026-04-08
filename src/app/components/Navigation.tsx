@@ -5,13 +5,12 @@ import iconHome from "@project-assets/gray home.png";
 import iconRefresh from "@project-assets/gray swap.png";
 import iconProfile from "@project-assets/gray buddy.png";
 
-/** Subtle sketchy hover tilt — alternates like InfoBoxFrame. */
-const ICON_HOVER_TILT = [
-  "transition-transform duration-300 ease-out will-change-transform hover:-rotate-[7deg]",
-  "transition-transform duration-300 ease-out will-change-transform hover:rotate-[8deg]",
-  "transition-transform duration-300 ease-out will-change-transform hover:-rotate-[6deg]",
-  "transition-transform duration-300 ease-out will-change-transform hover:rotate-[7deg]",
-  "transition-transform duration-300 ease-out will-change-transform hover:-rotate-[8deg]",
+const ICON_TILT_CLASS = [
+  "tb-nav-icon-btn tb-nav-tilt-0",
+  "tb-nav-icon-btn tb-nav-tilt-1",
+  "tb-nav-icon-btn tb-nav-tilt-2",
+  "tb-nav-icon-btn tb-nav-tilt-3",
+  "tb-nav-icon-btn tb-nav-tilt-4",
 ] as const;
 
 interface NavIconProps {
@@ -22,17 +21,8 @@ interface NavIconProps {
 
 function NavIcon({ icon, tiltClass, onClick }: NavIconProps) {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className={`relative flex h-[clamp(1.85rem,7vw,2.35rem)] w-[clamp(2.05rem,8.5vw,2.7rem)] shrink-0 cursor-pointer items-center justify-center border-0 bg-transparent p-0 outline-none focus-visible:rounded-lg focus-visible:ring-2 focus-visible:ring-[#ff3a00]/50 active:scale-95 ${tiltClass}`}
-    >
-      <img
-        alt=""
-        src={icon}
-        draggable={false}
-        className="max-h-full max-w-full object-contain"
-      />
+    <button type="button" onClick={onClick} className={tiltClass}>
+      <img alt="" src={icon} draggable={false} className="tb-nav-icon-img" />
     </button>
   );
 }
@@ -50,7 +40,7 @@ export default function Navigation() {
 
   return (
     <>
-      <svg width={0} height={0} className="pointer-events-none absolute overflow-hidden" aria-hidden>
+      <svg width={0} height={0} className="tb-nav-svg-hidden" aria-hidden>
         <defs>
           <filter id="tb-nav-chalk-edge" x="-22%" y="-22%" width="144%" height="144%">
             <feTurbulence
@@ -66,19 +56,19 @@ export default function Navigation() {
         </defs>
       </svg>
 
-      <div className="fixed bottom-[max(1.35rem,env(safe-area-inset-bottom,0px))] left-0 right-0 z-50 flex justify-center px-2 sm:bottom-5 sm:px-4">
-        <nav aria-label="Main" className="relative isolate flex w-full max-w-[min(480px,calc(100vw-24px))]">
+      <div className="tb-nav-dock">
+        <nav aria-label="Main" className="tb-nav-bar">
           <span
             aria-hidden
-            className="absolute inset-0 rounded-full border border-[#ff6b4a]/35 bg-[#ff8e7a] shadow-[0_3px_14px_rgba(45,36,32,0.14)]"
+            className="tb-nav-chalk-bg"
             style={{ filter: "url(#tb-nav-chalk-edge)" }}
           />
-          <div className="relative z-10 flex w-full items-center justify-between gap-0 px-3 py-1 sm:px-5 sm:py-1.5">
+          <div className="tb-nav-inner">
             {navItems.map(({ id, icon, path }, index) => (
-              <div key={id} className="flex min-w-0 flex-1 justify-center">
+              <div key={id} className="tb-nav-slot">
                 <NavIcon
                   icon={icon}
-                  tiltClass={ICON_HOVER_TILT[index % ICON_HOVER_TILT.length]}
+                  tiltClass={ICON_TILT_CLASS[index % ICON_TILT_CLASS.length]!}
                   onClick={() => navigate(path)}
                 />
               </div>
